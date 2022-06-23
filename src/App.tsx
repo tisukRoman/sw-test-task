@@ -1,12 +1,13 @@
-import { Component, ReactNode } from 'react';
+import { Component } from 'react';
+import { Header } from './components/header';
 import { Wrapper } from './components/wrapper';
 
 class App extends Component {
-  render(): ReactNode {
+  render() {
     return (
-      <Wrapper data-testid="app-wrapper">
-        <div></div>
-        <div></div>
+      <Wrapper width='80%'>
+        <Header></Header>
+        <main style={{ border: '1px solid black', height: '100vh' }}></main>
         <div></div>
       </Wrapper>
     );
