@@ -4,10 +4,10 @@ import { theme } from '../../theme';
 
 const StyledSizeOption = styled.div`
   width: 4em;
-  height: 100%;
+  height: 2.8em;
   border: 1px solid #000;
-  line-height: 2.5em;
-  font-size: 0.8em;
+  line-height: 2.8em;
+  font-size: 1em;
   font-weight: 500;
   font-family: ${theme.fonts.main};
   cursor: pointer;

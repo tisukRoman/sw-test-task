@@ -6,6 +6,7 @@ import { Button } from '../components/Button';
 import { Picture } from '../components/Picture';
 import { SizePicker } from '../components/SizePicker';
 import { TextLabel } from '../components/TextLabel';
+import { ColorPicker } from '../components/ColorPicker';
 
 const ProductPage = styled.div`
   margin-top: 4.5em;
@@ -20,7 +21,7 @@ const PictureList = styled.div`
 const PictureListWrapper = styled.div`
   margin-bottom: 2em;
   max-width: 5em;
-  height: 5em;
+  min-height: 5em;
   cursor: pointer;
   transition: 0.2s;
   &:hover {
@@ -40,12 +41,11 @@ const PictureWrapper = styled.div`
 const Info = styled.div`
   margin-left: 6em;
   max-width: 18em;
-  height: 32em;
+  min-height: 32em;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   font-family: ${theme.fonts.main};
-  //border: 1px solid black;
 `;
 
 const InfoTitle = styled.h2`
@@ -96,9 +96,9 @@ class Product extends Component {
           <InfoSubTitle>Running Short</InfoSubTitle>
           <TextLabel margin='0.5em 0 0.5em 0'>SIZE:</TextLabel>
           <SizePicker />
-          <TextLabel margin='1.5em 0 0.5em 0'>COLOR:</TextLabel>
-          <div>Color Picker</div>
-          <TextLabel margin='1.5em 0 1em 0'>PRICE:</TextLabel>
+          <TextLabel margin='2em 0 0.5em 0'>COLOR:</TextLabel>
+          <ColorPicker />
+          <TextLabel margin='1.5em 0 0.8em 0'>PRICE:</TextLabel>
           <Price>$50.00</Price>
           <Button variant='filled'>ADD TO CART</Button>
           <Description>
