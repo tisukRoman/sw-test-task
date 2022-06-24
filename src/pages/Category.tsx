@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import styled from 'styled-components';
-import { Card } from '../components/card';
+import { Card } from '../components/Card';
 import { theme } from '../theme';
 
 const CategoryTitle = styled.h2`

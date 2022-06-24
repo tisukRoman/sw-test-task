@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import styled from 'styled-components';
 import { theme } from '../../theme';
+import { Picture } from '../Picture';
 
 const CardWrapper = styled.div`
   margin-top: 5em;
@@ -28,12 +29,6 @@ const PictureWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const Picture = styled.img`
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
 `;
 
 const CardTitle = styled.div`

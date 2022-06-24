@@ -1,9 +1,10 @@
 import { Component } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Header } from './components/header';
-import { Main } from './components/main';
-import { Wrapper } from './components/wrapper';
+import { Header } from './components/Header';
+import { Main } from './components/Main';
+import { Wrapper } from './components/Wrapper';
 import { Category } from './pages/Category';
+import { Product } from './pages/Product';
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
         <Main>
           <Routes>
             <Route path='/' element={<Category />} />
+            <Route path='/product' element={<Product />} />
           </Routes>
         </Main>
         <div></div>

@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import styled from 'styled-components';
 import logo from '../../assets/logo.png';
-import { HeaderButton } from '../headerButton';
-import { CurrencySwitcher } from '../currencySwitcher';
-import { CartButton } from '../cartButton';
+import { HeaderButton } from '../HeaderButton';
+import { CurrencySwitcher } from '../CurrencySwitcher';
+import { CartButton } from '../CartButton';
 
 const StyledHeader = styled.header`
   margin-top: 1em;
