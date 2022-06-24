@@ -1,14 +1,16 @@
 import { Component } from 'react';
+import { v4 as uid } from 'uuid';
 import styled from 'styled-components';
+import { theme } from '../theme';
 import { Button } from '../components/Button';
 import { Picture } from '../components/Picture';
 import { SizePicker } from '../components/SizePicker';
 import { TextLabel } from '../components/TextLabel';
-import { theme } from '../theme';
 
 const ProductPage = styled.div`
   margin-top: 4.5em;
   display: flex;
+  flex-wrap: wrap;
 `;
 
 const PictureList = styled.div`
@@ -17,12 +19,17 @@ const PictureList = styled.div`
 
 const PictureListWrapper = styled.div`
   margin-bottom: 2em;
-  width: 5em;
+  max-width: 5em;
   height: 5em;
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const PictureWrapper = styled.div`
-  width: 38em;
+  max-width: 38em;
   height: 32em;
   overflow: hidden;
   display: flex;
@@ -32,7 +39,7 @@ const PictureWrapper = styled.div`
 
 const Info = styled.div`
   margin-left: 6em;
-  width: 16em;
+  max-width: 18em;
   height: 32em;
   display: flex;
   flex-direction: column;
@@ -69,24 +76,14 @@ class Product extends Component {
     return (
       <ProductPage>
         <PictureList>
-          <PictureListWrapper>
-            <Picture
-              src='https://cdn.shopify.com/s/files/1/0281/3837/3173/files/WhatsApp_Image_2022-06-01_at_12.54.28_AM.jpg?v=1654098193'
-              alt='dress picture'
-            />
-          </PictureListWrapper>
-          <PictureListWrapper>
-            <Picture
-              src='https://asset1.marksandspencer.com/is/image/mands/SD_01_T69_1261_ZZ_X_EC_2'
-              alt='dress picture'
-            />
-          </PictureListWrapper>
-          <PictureListWrapper>
-            <Picture
-              src='https://asset1.marksandspencer.com/is/image/mands/SD_01_T69_1261_ZZ_X_EC_2'
-              alt='dress picture'
-            />
-          </PictureListWrapper>
+          {[0, 0, 0].map((picture) => (
+            <PictureListWrapper key={uid()}>
+              <Picture
+                src='https://cdn.shopify.com/s/files/1/0281/3837/3173/files/WhatsApp_Image_2022-06-01_at_12.54.28_AM.jpg?v=1654098193'
+                alt='dress picture'
+              />
+            </PictureListWrapper>
+          ))}
         </PictureList>
         <PictureWrapper>
           <Picture

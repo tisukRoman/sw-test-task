@@ -13,10 +13,12 @@ const StyledCurrencySwitcher = styled.div`
   border: none;
 `;
 
-const ArrowIcon = styled.img`
+const ArrowIcon = styled.img<CurrencySwitcherState>`
   width: 10px;
   height: 6px;
   margin-left: 6px;
+  transition: 0.5s;
+  transform: ${({ isActive }) => isActive && 'rotate(180deg)'};
 `;
 
 const OptionsList = styled.div`
@@ -37,8 +39,12 @@ const CurrencyOption = styled.div`
   }
 `;
 
-class CurrencySwitcher extends Component {
-  constructor(props) {
+type CurrencySwitcherState = {
+  isActive: boolean;
+};
+
+class CurrencySwitcher extends Component<{}, CurrencySwitcherState> {
+  constructor(props: {}) {
     super(props);
     this.state = {
       isActive: false,
@@ -53,7 +59,12 @@ class CurrencySwitcher extends Component {
     return (
       <StyledCurrencySwitcher onClick={this.toggleSwitcher}>
         <div>
-          $ <ArrowIcon src={arrow} alt='currency switcher' />
+          ${' '}
+          <ArrowIcon
+            src={arrow}
+            alt='currency switcher'
+            isActive={this.state.isActive}
+          />
         </div>
         {this.state.isActive && (
           <OptionsList>

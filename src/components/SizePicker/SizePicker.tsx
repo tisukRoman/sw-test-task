@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { v4 as uid } from 'uuid';
 import styled from 'styled-components';
 import { SizeOption } from './SizeOption';
 
@@ -26,7 +27,7 @@ class SizePicker extends Component<{}, SizePickerState> {
       <>
         <SizeContainer>
           {this.state.options.map((option, i) => (
-            <SizeOption key={i} value={option}>
+            <SizeOption key={uid()} value={option}>
               {option.toUpperCase()}
             </SizeOption>
           ))}

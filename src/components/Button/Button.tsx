@@ -4,10 +4,14 @@ import { theme } from '../../theme';
 
 const StyledButton = styled.button<ButtonProps>`
   width: ${({ width }) => (width ? width : '100%')};
-  height: ${({ height }) => (height ? height : '3em')};
+  height: ${({ height }) => (height ? height : '4em')};
   font-family: ${theme.fonts.main};
   font-weight: 500;
   cursor: pointer;
+  transition: 0.2s;
+  &:hover{
+    opacity: 0.8;
+  }
   ${({ variant }) => {
     return variant === 'outlined'
       ? `

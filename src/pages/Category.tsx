@@ -1,7 +1,8 @@
 import { Component } from 'react';
+import { v4 as uid } from 'uuid';
 import styled from 'styled-components';
-import { Card } from '../components/Card';
 import { theme } from '../theme';
+import { Card } from '../components/Card';
 
 const CategoryTitle = styled.h2`
   margin-top: 2em;
@@ -25,10 +26,9 @@ class Category extends Component {
       <>
         <CategoryTitle>Category name</CategoryTitle>
         <CardsContainer>
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+          {[0, 0, 0, 0, 0, 0, 0].map((card) => (
+            <Card key={uid()} />
+          ))}
         </CardsContainer>
       </>
     );
