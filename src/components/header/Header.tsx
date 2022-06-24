@@ -8,7 +8,6 @@ import { CurrencyButton } from '../currencyButton';
 const StyledHeader = styled.header`
   width: 100%;
   height: 8vh;
-  // border: 1px solid black;
   display: flex;
   justify-content: space-between;
   position: relative;

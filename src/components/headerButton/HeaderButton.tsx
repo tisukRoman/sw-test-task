@@ -8,7 +8,7 @@ const StyledHeaderButton = styled.header`
   text-align: center;
   line-height: 3em;
   font-family: ${theme.fonts.main}
-  transition: 0.2s;
+  transition: 0.3s;
   cursor: pointer;
   &:hover {
     color: ${theme.colors.active};
