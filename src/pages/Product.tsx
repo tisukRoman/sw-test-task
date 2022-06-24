@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Button } from '../components/Button';
 import { Picture } from '../components/Picture';
 import { SizePicker } from '../components/SizePicker';
+import { TextLabel } from '../components/TextLabel';
 import { theme } from '../theme';
 
 const ProductPage = styled.div`
@@ -37,7 +38,7 @@ const Info = styled.div`
   flex-direction: column;
   align-items: flex-start;
   font-family: ${theme.fonts.main};
-  border: 1px solid black;
+  //border: 1px solid black;
 `;
 
 const InfoTitle = styled.h2`
@@ -50,16 +51,10 @@ const InfoSubTitle = styled.h2`
   font-weight: 400;
 `;
 
-const InfoLabel = styled.div`
-  font-weight: bold;
-  font-family: ${theme.fonts.main};
-  margin: 1em 0 0.5em 0;
-`;
-
 const Price = styled.div`
   font-weight: bold;
   font-family: ${theme.fonts.main};
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 `;
 
 const Description = styled.p`
@@ -102,11 +97,11 @@ class Product extends Component {
         <Info>
           <InfoTitle>Apollo</InfoTitle>
           <InfoSubTitle>Running Short</InfoSubTitle>
-          <InfoLabel>SIZE:</InfoLabel>
+          <TextLabel margin='0.5em 0 0.5em 0'>SIZE:</TextLabel>
           <SizePicker />
-          <InfoLabel>COLOR:</InfoLabel>
+          <TextLabel margin='1.5em 0 0.5em 0'>COLOR:</TextLabel>
           <div>Color Picker</div>
-          <InfoLabel>Price:</InfoLabel>
+          <TextLabel margin='1.5em 0 1em 0'>PRICE:</TextLabel>
           <Price>$50.00</Price>
           <Button variant='filled'>ADD TO CART</Button>
           <Description>

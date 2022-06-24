@@ -5,7 +5,7 @@ const StyledWrapper = styled.div`
   max-width: 1240px;
   margin: 0 auto 5em auto;
   text-align: center;
-  border: 1px solid black;
+  //border: 1px solid black;
 `;
 
 type WrapperProps = {
