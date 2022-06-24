@@ -1,11 +1,12 @@
 import { Component } from 'react';
 import styled from 'styled-components';
 import logo from '../../assets/logo.png';
-import cart from '../../assets/cart.png';
 import { HeaderButton } from '../headerButton';
 import { CurrencySwitcher } from '../currencySwitcher';
+import { CartButton } from '../cartButton';
 
 const StyledHeader = styled.header`
+  margin-top: 1em;
   width: 100%;
   height: 8vh;
   display: flex;
@@ -44,9 +45,7 @@ class Header extends Component {
         </LogoWrapper>
         <HeaderNavigation>
           <CurrencySwitcher />
-          <HeaderButton>
-            <img src={cart} alt='cart icon' />
-          </HeaderButton>
+          <CartButton />
         </HeaderNavigation>
       </StyledHeader>
     );

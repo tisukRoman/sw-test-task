@@ -5,7 +5,7 @@ import { theme } from '../../theme';
 const CardWrapper = styled.div`
   margin-top: 5em;
   width: 23em;
-  height: 26em;
+  height: 27em;
   cursor: pointer;
   transition: 0.3s;
   &:hover {
@@ -14,7 +14,7 @@ const CardWrapper = styled.div`
 `;
 
 const Media = styled.div`
-  padding: 0.5em;
+  padding: 1em;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
