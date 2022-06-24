@@ -2,7 +2,7 @@ import { Component, ReactNode } from 'react';
 import styled from 'styled-components';
 
 const StyledMain = styled.main`
-  border: 1px solid black;
+  // border: 1px solid black;
   width: 100%;
 `;
 

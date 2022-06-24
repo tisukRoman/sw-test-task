@@ -2,13 +2,13 @@ import { Component, ReactNode } from 'react';
 import styled from 'styled-components';
 import { theme } from '../../theme';
 
-const StyledHeaderButton = styled.header`
+const StyledHeaderButton = styled.div`
   width: 5em;
   height: 100%;
   text-align: center;
   line-height: 3em;
-  font-family: ${theme.fonts.main}
-  transition: 0.3s;
+  font-family: ${theme.fonts.main};
+  transition: 0.2s;
   cursor: pointer;
   &:hover {
     color: ${theme.colors.active};

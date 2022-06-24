@@ -3,8 +3,7 @@ import styled from 'styled-components';
 
 const StyledWrapper = styled.div`
   max-width: 1240px;
-  margin: 0 auto;
-  //border: 1px solid #000;
+  margin: 0 auto 5em auto;
   text-align: center;
 `;
 

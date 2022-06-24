@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import logo from '../../assets/logo.png';
 import cart from '../../assets/cart.png';
 import { HeaderButton } from '../headerButton';
-import { CurrencyButton } from '../currencyButton';
+import { CurrencySwitcher } from '../currencySwitcher';
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -23,7 +23,7 @@ const LogoWrapper = styled.div`
   top: 0.5em;
   left: 50%;
   transform: translateX(-50%);
-`
+`;
 
 const Logo = styled.img`
   width: 100%;
@@ -43,8 +43,10 @@ class Header extends Component {
           <Logo src={logo} alt='shop logo' />
         </LogoWrapper>
         <HeaderNavigation>
-          <CurrencyButton/>
-          <HeaderButton><img src={cart} alt="cart icon"/></HeaderButton>
+          <CurrencySwitcher />
+          <HeaderButton>
+            <img src={cart} alt='cart icon' />
+          </HeaderButton>
         </HeaderNavigation>
       </StyledHeader>
     );

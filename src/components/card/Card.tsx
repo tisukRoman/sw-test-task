@@ -4,12 +4,12 @@ import { theme } from '../../theme';
 
 const CardWrapper = styled.div`
   margin-top: 5em;
-  width: 21em;
-  height: 25em;
+  width: 23em;
+  height: 26em;
   cursor: pointer;
   transition: 0.3s;
   &:hover {
-    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 8px 8px rgba(66, 65, 65, 0.1);
   }
 `;
 
@@ -23,7 +23,7 @@ const Media = styled.div`
 
 const PictureWrapper = styled.div`
   width: 100%;
-  height: 20em;
+  height: 21em;
   overflow: hidden;
   display: flex;
   justify-content: center;
