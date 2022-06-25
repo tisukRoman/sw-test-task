@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { theme } from '../../theme';
 
 const StyledSizeOption = styled.div`
-  width: 4em;
+  width: 3.8em;
   height: 2.8em;
   border: 1px solid #000;
   line-height: 2.8em;
