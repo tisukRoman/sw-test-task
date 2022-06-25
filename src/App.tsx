@@ -1,10 +1,11 @@
 import { Component } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { Category } from './pages/Category';
+import { Product } from './pages/Product';
+import { Cart } from './pages/Cart';
 import { Header } from './components/Header';
 import { Main } from './components/Main';
 import { Wrapper } from './components/Wrapper';
-import { Category } from './pages/Category';
-import { Product } from './pages/Product';
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
           <Routes>
             <Route path='/' element={<Category />} />
             <Route path='/product' element={<Product />} />
+            <Route path='/cart' element={<Cart />} />
           </Routes>
         </Main>
         <div></div>

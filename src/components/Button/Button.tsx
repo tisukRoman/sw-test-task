@@ -5,6 +5,8 @@ import { theme } from '../../theme';
 const StyledButton = styled.button<ButtonProps>`
   width: ${({ width }) => (width ? width : '100%')};
   height: ${({ height }) => (height ? height : '4em')};
+  line-height:  ${({ height }) => (height ? height : '4em')};
+  font-size: ${({ fontSize }) => (fontSize ? fontSize : '1rem')};
   font-family: ${theme.fonts.main};
   font-weight: 500;
   cursor: pointer;
@@ -30,6 +32,7 @@ type ButtonProps = {
   variant?: 'filled' | 'outlined';
   width?: string;
   height?: string;
+  fontSize?: string;
   children: ReactNode;
 };
 
