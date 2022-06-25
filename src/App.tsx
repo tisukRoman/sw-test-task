@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <Wrapper>
-        <Header />
+        <Header/>
         <Main>
           <Routes>
             <Route path='/' element={<Category />} />

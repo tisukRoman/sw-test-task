@@ -1,9 +1,11 @@
 import { Component } from 'react';
+import { v4 as uid } from 'uuid';
 import styled from 'styled-components';
 import logo from '../../assets/logo.png';
 import { HeaderButton } from '../HeaderButton';
 import { CurrencySwitcher } from '../CurrencySwitcher';
 import { CartButton } from '../CartButton';
+import { Category, withCategoryList } from '../../api/withCategoryList';
 
 const StyledHeader = styled.header`
   margin-top: 1em;
@@ -31,14 +33,20 @@ const Logo = styled.img`
   height: 100%;
 `;
 
-class Header extends Component {
+type HeaderProps = {
+  categories?: Category[];
+};
+
+class Header extends Component<HeaderProps> {
   render() {
+    const { categories } = this.props;
+
     return (
       <StyledHeader>
         <HeaderNavigation>
-          <HeaderButton>WOMEN</HeaderButton>
-          <HeaderButton>MEN</HeaderButton>
-          <HeaderButton>KIDS</HeaderButton>
+          {categories?.map(({ name }) => (
+            <HeaderButton key={uid()}>{name.toUpperCase()}</HeaderButton>
+          ))}
         </HeaderNavigation>
         <LogoWrapper>
           <Logo src={logo} alt='shop logo' />
@@ -52,4 +60,10 @@ class Header extends Component {
   }
 }
 
-export { Header };
+export const HeaderWithCategories = withCategoryList(
+  ({ data: { loading, categories, error } }) => {
+    if (loading) return <div>Loading</div>;
+    if (error) return <h1>ERROR</h1>;
+    return <Header categories={categories} />;
+  }
+);
