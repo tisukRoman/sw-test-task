@@ -42,6 +42,7 @@ const CardPrice = styled.div`
   font-weight: 500;
 `;
 
+
 class Card extends Component {
   render() {
     return (
