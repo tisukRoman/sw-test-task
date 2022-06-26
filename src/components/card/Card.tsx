@@ -1,7 +1,9 @@
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme } from '../../theme';
 import { Picture } from '../Picture';
+import styles from './Card.module.css';
 
 const CardWrapper = styled.div<{ inStock: boolean }>`
   margin-top: 5em;
@@ -49,7 +51,7 @@ const CardPrice = styled.div`
 `;
 
 const OutOfStockTitle = styled.div<{ inStock: boolean }>`
-  ${({inStock}) => inStock && 'display: none'};
+  ${({ inStock }) => inStock && 'display: none'};
   font-family: ${theme.fonts.main};
   font-weight: 400;
   position: absolute;
@@ -76,21 +78,23 @@ class Card extends Component<CardProps> {
   render() {
     const { id, imgSrc, name, brand, inStock, price } = this.props;
     return (
-      <CardWrapper inStock={inStock}>
-        <Media>
-          <PictureWrapper>
-            <OutOfStockTitle inStock={inStock}>OUT OF STOCK</OutOfStockTitle>
-            <Picture src={imgSrc} alt='dress alt' />
-          </PictureWrapper>
-          <CardTitle>
-            {name} {brand}
-          </CardTitle>
-          <CardPrice>
-            {price.currency.symbol}
-            {price.amount}
-          </CardPrice>
-        </Media>
-      </CardWrapper>
+      <Link to={inStock ? `/product/${id}` : ''} className={styles.link}>
+        <CardWrapper inStock={inStock}>
+          <Media>
+            <PictureWrapper>
+              <OutOfStockTitle inStock={inStock}>OUT OF STOCK</OutOfStockTitle>
+              <Picture src={imgSrc} alt='dress alt' />
+            </PictureWrapper>
+            <CardTitle>
+              {name} {brand}
+            </CardTitle>
+            <CardPrice>
+              {price.currency.symbol}
+              {price.amount}
+            </CardPrice>
+          </Media>
+        </CardWrapper>
+      </Link>
     );
   }
 }

@@ -17,14 +17,13 @@ type AppProps = {
 
 class App extends Component<AppProps> {
   componentDidMount() {
-    if(window.location.pathname !== '/category/all'){
+    if(window.location.pathname === '/'){
       window.location.pathname = '/category/all';
     }
   }
 
   render() {
     const { categories } = this.props;
-
     return (
       <Wrapper>
         <Header categories={categories} />
@@ -36,7 +35,7 @@ class App extends Component<AppProps> {
                 element={<Category input={{ title: name }} />}
               />
             ))}
-            <Route path='/product' element={<Product />} />
+            <Route path='/product/:id' element={<Product />} />
             <Route path='/cart' element={<Cart />} />
           </Routes>
         </Main>
