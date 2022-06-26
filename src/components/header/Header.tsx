@@ -5,7 +5,7 @@ import logo from '../../assets/logo.png';
 import { HeaderLink } from '../HeaderLink';
 import { CurrencySwitcher } from '../CurrencySwitcher';
 import { CartButton } from '../CartButton';
-import { Category, withCategoryList } from '../../api/withCategoryList';
+import { Category } from '../../api/withCategoryList';
 
 const StyledHeader = styled.header`
   margin-top: 1em;
@@ -44,10 +44,7 @@ class Header extends Component<HeaderProps> {
       <StyledHeader>
         <HeaderNavigation>
           {categories?.map(({ name }) => (
-            <HeaderLink
-              key={uid()}
-              name={name}
-            >
+            <HeaderLink key={uid()} name={name}>
               {name.toUpperCase()}
             </HeaderLink>
           ))}
@@ -64,10 +61,4 @@ class Header extends Component<HeaderProps> {
   }
 }
 
-export const HeaderWithCategories = withCategoryList(
-  ({ data: { loading, categories, error } }) => {
-    if (loading) return <div>Loading</div>;
-    if (error) return <h1>ERROR</h1>;
-    return <Header categories={categories} />;
-  }
-);
+export { Header };

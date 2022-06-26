@@ -6,18 +6,36 @@ import Cart from './pages/Cart';
 import { Header } from './components/Header';
 import { Main } from './components/Main';
 import { Wrapper } from './components/Wrapper';
+import {
+  Category as CategoryType,
+  withCategoryList,
+} from './api/withCategoryList';
 
-class App extends Component {
+type AppProps = {
+  categories?: CategoryType[];
+};
+
+class App extends Component<AppProps> {
+  componentDidMount() {
+    if(window.location.pathname !== '/category/all'){
+      window.location.pathname = '/category/all';
+    }
+  }
+
   render() {
+    const { categories } = this.props;
+
     return (
       <Wrapper>
-        <Header />
+        <Header categories={categories} />
         <Main>
           <Routes>
-            <Route
-              path='/category/:name'
-              element={<Category input={{ title: 'tech' }} />}
-            />
+            {categories?.map(({ name }) => (
+              <Route
+                path={`/category/${name}`}
+                element={<Category input={{ title: name }} />}
+              />
+            ))}
             <Route path='/product' element={<Product />} />
             <Route path='/cart' element={<Cart />} />
           </Routes>
@@ -27,6 +45,8 @@ class App extends Component {
   }
 }
 
-App.contextType = CategoryContext;
-
-export default App;
+export default withCategoryList(({ data: { loading, categories, error } }) => {
+  if (loading) return <div>Loading</div>;
+  if (error) return <h1>ERROR</h1>;
+  return <App categories={categories} />;
+});

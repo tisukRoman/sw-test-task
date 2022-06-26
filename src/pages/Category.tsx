@@ -18,10 +18,14 @@ type CategoryProps = {
 };
 
 class Category extends Component<CategoryProps, {}> {
+  capitalFirstLetter = (text: string = 'unknown') => {
+    return text[0].toUpperCase() + text.slice(1)
+  }
+
   render() {
     return (
       <>
-        <CategoryTitle>{this.props.name}</CategoryTitle>
+        <CategoryTitle>{this.capitalFirstLetter(this.props.name)}</CategoryTitle>
         <CardsList products={this.props.products}/>
       </>
     );

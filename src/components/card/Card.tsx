@@ -5,7 +5,7 @@ import { Picture } from '../Picture';
 
 const CardWrapper = styled.div<{ inStock: boolean }>`
   margin-top: 5em;
-  width: 23em;
+  width: 22em;
   height: 27em;
   ${({ inStock }) =>
     inStock
