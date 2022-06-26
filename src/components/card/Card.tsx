@@ -3,15 +3,21 @@ import styled from 'styled-components';
 import { theme } from '../../theme';
 import { Picture } from '../Picture';
 
-const CardWrapper = styled.div`
+const CardWrapper = styled.div<{ inStock: boolean }>`
   margin-top: 5em;
   width: 23em;
   height: 27em;
+  ${({ inStock }) =>
+    inStock
+      ? `
   cursor: pointer;
   transition: 0.3s;
   &:hover {
     box-shadow: 0px 0px 8px 8px rgba(66, 65, 65, 0.1);
-  }
+  } `
+      : `
+    opacity: 0.5;
+  `}
 `;
 
 const Media = styled.div`
@@ -42,20 +48,47 @@ const CardPrice = styled.div`
   font-weight: 500;
 `;
 
+const OutOfStockTitle = styled.div<{ inStock: boolean }>`
+  ${({inStock}) => inStock && 'display: none'};
+  font-family: ${theme.fonts.main};
+  font-weight: 400;
+  position: absolute;
+  font-size: 1.5rem;
+  cursor: default;
+`;
 
-class Card extends Component {
+type CardProps = {
+  id: string;
+  name: string;
+  brand: string;
+  inStock: boolean;
+  imgSrc: string;
+  price: {
+    currency: {
+      label: string;
+      symbol: string;
+    };
+    amount: number;
+  };
+};
+
+class Card extends Component<CardProps> {
   render() {
+    const { id, imgSrc, name, brand, inStock, price } = this.props;
     return (
-      <CardWrapper>
+      <CardWrapper inStock={inStock}>
         <Media>
           <PictureWrapper>
-            <Picture
-              src='https://cdn.shopify.com/s/files/1/1055/6168/products/image5_2_cf023ed8-7f49-4342-9085-7451d91fbb31_2048x.jpg?v=1596583227'
-              alt='dress alt'
-            />
+            <OutOfStockTitle inStock={inStock}>OUT OF STOCK</OutOfStockTitle>
+            <Picture src={imgSrc} alt='dress alt' />
           </PictureWrapper>
-          <CardTitle>Name of the clothe</CardTitle>
-          <CardPrice>$50.00</CardPrice>
+          <CardTitle>
+            {name} {brand}
+          </CardTitle>
+          <CardPrice>
+            {price.currency.symbol}
+            {price.amount}
+          </CardPrice>
         </Media>
       </CardWrapper>
     );

@@ -100,7 +100,9 @@ class Product extends Component {
           <ColorPicker />
           <TextLabel margin='1.5em 0 0.8em 0'>PRICE:</TextLabel>
           <Price>$50.00</Price>
-          <Button variant='filled' disabled>ADD TO CART</Button>
+          <Button variant='filled' disabled>
+            ADD TO CART
+          </Button>
           <Description>
             Find stunning women's cocktail dresses and party dresses. Stand out
             in lace and metallic cocktail dresses and party dresses from all
@@ -112,4 +114,4 @@ class Product extends Component {
   }
 }
 
-export { Product };
+export default Product;

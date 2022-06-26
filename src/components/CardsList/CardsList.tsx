@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { v4 as uid } from 'uuid';
 import styled from 'styled-components';
 import { Card } from '../Card';
 
@@ -11,14 +10,30 @@ const CardsListWrapper = styled.div`
   justify-content: space-between;
 `;
 
-class CardsList extends Component {
+type CardListProps = {
+  products?: any[];
+};
+
+class CardsList extends Component<CardListProps> {
   render() {
     return (
       <>
         <CardsListWrapper>
-          {[0, 0, 0, 0, 0, 0, 0].map((card) => (
-            <Card key={uid()} />
-          ))}
+          {this.props.products?.length ? (
+            this.props.products.map((card) => (
+              <Card
+                id={card.id}
+                key={card.id}
+                name={card.name}
+                brand={card.brand}
+                inStock={card.inStock}
+                imgSrc={card.gallery[0]}
+                price={card.prices[0]}
+              />
+            ))
+          ) : (
+            <h1>No Products</h1>
+          )}
         </CardsListWrapper>
       </>
     );

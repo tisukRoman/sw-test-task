@@ -36,4 +36,4 @@ class Cart extends Component {
   }
 }
 
-export { Cart };
+export default Cart;

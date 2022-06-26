@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 import { ChildDataProps, graphql } from '@apollo/client/react/hoc';
 
 const GET_PRODUCTS_BY_CATEGORY = gql`
-  query {
-    category($input: CategoryInput) {
+  query category($input: CategoryInput) {
+    category(input: $input) {
       name
       products {
         id
@@ -23,15 +23,20 @@ const GET_PRODUCTS_BY_CATEGORY = gql`
   }
 `;
 
+type Currency = {
+  __typename: 'Currency';
+  label: string;
+  symbol: string;
+};
+
 type Price = {
-  currency: {
-    label: string;
-    symbol: string;
-  };
+  __typename: 'Price';
+  currency: Currency;
   amount: number;
 };
 
-type Product = {
+export type Product = {
+  __typename: 'Product';
   id: string;
   name: string;
   brand: string;
@@ -45,8 +50,10 @@ type InputProps = {
 };
 
 type Response = {
-  name: string;
-  products: Product[];
+  category: {
+    name: string;
+    products: Product[];
+  };
 };
 
 type Variables = {
@@ -55,11 +62,13 @@ type Variables = {
 
 type ChildProps = ChildDataProps<InputProps, Response, Variables>;
 
-export const withProducts = graphql<InputProps, Response, Variables, ChildProps>(
-  GET_PRODUCTS_BY_CATEGORY,
-  {
-    options: ({ input }) => ({
-      variables: { input },
-    }),
-  }
-);
+export const withProducts = graphql<
+  InputProps,
+  Response,
+  Variables,
+  ChildProps
+>(GET_PRODUCTS_BY_CATEGORY, {
+  options: ({ input }) => ({
+    variables: { input },
+  }),
+});

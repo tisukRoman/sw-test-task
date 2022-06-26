@@ -44,7 +44,10 @@ class Header extends Component<HeaderProps> {
       <StyledHeader>
         <HeaderNavigation>
           {categories?.map(({ name }) => (
-            <HeaderLink key={uid()} name={name}>
+            <HeaderLink
+              key={uid()}
+              name={name}
+            >
               {name.toUpperCase()}
             </HeaderLink>
           ))}

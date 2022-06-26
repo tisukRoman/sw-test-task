@@ -10,11 +10,12 @@ type HeaderLinkProps = {
 class HeaderLink extends Component<HeaderLinkProps> {
   render() {
     const { children, name } = this.props;
+
     return (
-      <NavLink to={`/category/${name}`} 
-      className={({ isActive }) =>
-      isActive ? styles.active : styles.link
-    }>
+      <NavLink
+        to={`/category/${name}`}
+        className={({ isActive }) => (isActive ? styles.active : styles.link)}
+      >
         <div>{children}</div>
       </NavLink>
     );

@@ -2,6 +2,7 @@ import { Component } from 'react';
 import styled from 'styled-components';
 import { theme } from '../theme';
 import { CardsList } from '../components/CardsList';
+import { withProducts } from '../api/withProducts';
 
 const CategoryTitle = styled.h2`
   margin-top: 2em;
@@ -11,15 +12,25 @@ const CategoryTitle = styled.h2`
   font-weight: 400;
 `;
 
-class Category extends Component {
+type CategoryProps = {
+  name?: string;
+  products?: any[];
+};
+
+class Category extends Component<CategoryProps, {}> {
   render() {
     return (
       <>
-        <CategoryTitle>Category name</CategoryTitle>
-        <CardsList />
+        <CategoryTitle>{this.props.name}</CategoryTitle>
+        <CardsList products={this.props.products}/>
       </>
     );
   }
 }
 
-export { Category };
+export default withProducts(({ data: { loading, category, error } }) => {
+  if (loading) return <div>Loading</div>;
+  if (error) return <h1>ERROR</h1>;
+  if (!category) return <h1>Category was not found</h1>;
+  return <Category name={category.name} products={category.products} />;
+});
