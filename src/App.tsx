@@ -8,18 +8,18 @@ import { Main } from './components/Main';
 import { Wrapper } from './components/Wrapper';
 
 class App extends Component {
+
   render() {
     return (
       <Wrapper>
-        <Header/>
+        <Header />
         <Main>
           <Routes>
-            <Route path='/' element={<Category />} />
+            <Route path='/category/:name' element={<Category />} />
             <Route path='/product' element={<Product />} />
             <Route path='/cart' element={<Cart />} />
           </Routes>
         </Main>
-        <div></div>
       </Wrapper>
     );
   }

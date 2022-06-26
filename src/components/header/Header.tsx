@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { v4 as uid } from 'uuid';
 import styled from 'styled-components';
 import logo from '../../assets/logo.png';
-import { HeaderButton } from '../HeaderButton';
+import { HeaderLink } from '../HeaderLink';
 import { CurrencySwitcher } from '../CurrencySwitcher';
 import { CartButton } from '../CartButton';
 import { Category, withCategoryList } from '../../api/withCategoryList';
@@ -40,12 +40,13 @@ type HeaderProps = {
 class Header extends Component<HeaderProps> {
   render() {
     const { categories } = this.props;
-
     return (
       <StyledHeader>
         <HeaderNavigation>
           {categories?.map(({ name }) => (
-            <HeaderButton key={uid()}>{name.toUpperCase()}</HeaderButton>
+            <HeaderLink key={uid()} name={name}>
+              {name.toUpperCase()}
+            </HeaderLink>
           ))}
         </HeaderNavigation>
         <LogoWrapper>

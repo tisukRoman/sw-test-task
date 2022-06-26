@@ -1,0 +1,37 @@
+.link {
+  width: 5em;
+  height: 100%;
+  text-align: center;
+  line-height: 3em;
+  transition: 0.2s;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  text-decoration: none;
+  color: #000;
+}
+
+.link:hover {
+    width: 5em;
+    height: 100%;
+    text-align: center;
+    line-height: 3em;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    color: #5ECE7B;
+    border-bottom: 3px solid #5ECE7B;
+    text-decoration: none;
+}
+
+.active {
+    width: 5em;
+    height: 100%;
+    text-align: center;
+    line-height: 3em;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    color: #5ECE7B;
+    border-bottom: 3px solid #5ECE7B;
+    text-decoration: none;
+}
