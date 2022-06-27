@@ -11,7 +11,11 @@ const ItemsContainer = styled.div`
   justify-content: flex-start;
 `;
 
-const TextItem = styled.div`
+const TextItem = styled.div<{ isActive: boolean }>`
+  ${({ isActive }) =>
+    isActive &&
+    `background-color: #000;
+    color: #fff;`};
   height: 100%;
   width: 4em;
   border: 1px solid #000;
@@ -24,11 +28,12 @@ const TextItem = styled.div`
   }
 `;
 
-const ColorItem = styled.div<{ value: string }>`
+const ColorItem = styled.div<{ value: string; isActive: boolean }>`
   padding: 0.1em;
   height: 2em;
   width: 2em;
-  border: 3px solid #efefef;
+  border: 3px solid
+    ${({ isActive }) => (isActive ? theme.colors.active : '#e2e2e2')};
   margin-right: 1em;
   cursor: pointer;
   transition: 0.2s;
@@ -49,24 +54,35 @@ type AttributeProps = {
   name: string;
   type: string;
   items: Item[];
+  activeValue: string | null;
+  onSelect: (name: string, value: string) => void;
 };
 
 class ProductAttribute extends Component<AttributeProps> {
   render() {
-    console.log(this.props);
-
-    const { name, type, items } = this.props;
+    const { name, type, items, activeValue, onSelect } = this.props;
 
     return (
       <>
         <TextLabel margin='1.5em 0 0.5em 0'>{name}:</TextLabel>
         <ItemsContainer>
           {type === 'swatch'
-            ? items.map(({ id, value, displayValue }) => (
-                <ColorItem key={id} value={value}></ColorItem>
+            ? items.map(({ id, value }) => (
+                <ColorItem
+                  key={id}
+                  value={value}
+                  isActive={value === activeValue}
+                  onClick={() => onSelect(name, value)}
+                ></ColorItem>
               ))
-            : items.map(({ id, value, displayValue }) => (
-                <TextItem key={id}>{value}</TextItem>
+            : items.map(({ id, value }) => (
+                <TextItem
+                  key={id}
+                  isActive={value === activeValue}
+                  onClick={() => onSelect(name, value)}
+                >
+                  {value}
+                </TextItem>
               ))}
         </ItemsContainer>
       </>

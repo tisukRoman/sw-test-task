@@ -38,7 +38,7 @@ type AttributeItem = {
   id: string;
 };
 
-type Attribute = {
+export type Attribute = {
   id: string;
   name: string;
   type: string;

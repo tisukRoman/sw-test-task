@@ -3,9 +3,10 @@ import { v4 as uid } from 'uuid';
 import parse from 'html-react-parser';
 import styled from 'styled-components';
 import { theme } from '../theme';
+import { ProductDetails, withProductDetails } from '../api/withProductDetails';
+import { toAttributesState } from '../utils/toAttributesState';
 import { Button } from '../components/Button';
 import { Picture } from '../components/Picture';
-import { ProductDetails, withProductDetails } from '../api/withProductDetails';
 import { ProductAttribute } from '../components/ProductAttribute';
 
 const ProductPage = styled.div`
@@ -93,19 +94,46 @@ type ProductProps = {
 
 type ProductState = {
   selectedPicture: string;
+  attributes: {
+    [name: string]: string;
+  } | null;
 };
 
 class Product extends Component<ProductProps, ProductState> {
   state = {
     selectedPicture: '',
+    attributes: null,
   };
+
+  componentDidUpdate() {
+    const { product } = this.props.data;
+    const { attributes } = this.state;
+
+    if (product?.attributes.length && !attributes) {
+      const activeAttributes = toAttributesState(product.attributes);
+      this.setState({
+        attributes: activeAttributes,
+      });
+    }
+  }
 
   selectPicture = (src: string) => {
     this.setState({ selectedPicture: src });
   };
 
+  selectAttributeValue = (name: string, value: string) => {
+    this.setState((prev) => {
+      const updatedAttributes = { ...prev.attributes };
+      updatedAttributes[name] = value;
+      return { attributes: updatedAttributes };
+    });
+  };
+
   render() {
+    console.log(this.state);
+
     const { loading, error, product } = this.props.data;
+    const { attributes } = this.state;
 
     if (loading) return <div>Loading...</div>;
     if (error) return <h1>Error</h1>;
@@ -132,9 +160,13 @@ class Product extends Component<ProductProps, ProductState> {
         <Info>
           <InfoTitle>{product.name}</InfoTitle>
           <InfoSubTitle>{product.brand}</InfoSubTitle>
-
           {product.attributes.map((attr) => (
-            <ProductAttribute {...attr} key={attr.id} />
+            <ProductAttribute
+              onSelect={this.selectAttributeValue}
+              key={attr.id}
+              activeValue={attributes ? attributes[attr.name] : null}
+              {...attr}
+            />
           ))}
           <Price>
             {product.prices[0].currency.symbol}
