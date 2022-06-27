@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Category from './pages/Category';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
@@ -16,28 +16,18 @@ type AppProps = {
 };
 
 class App extends Component<AppProps> {
-  componentDidMount() {
-    if(window.location.pathname === '/'){
-      window.location.pathname = '/category/all';
-    }
-  }
-
   render() {
     const { categories } = this.props;
     return (
       <Wrapper>
         <Header categories={categories} />
         <Main>
-          <Routes>
-            {categories?.map(({ name }) => (
-              <Route
-                path={`/category/${name}`}
-                element={<Category input={{ title: name }} />}
-              />
-            ))}
-            <Route path='/product/:id' element={<Product />} />
-            <Route path='/cart' element={<Cart />} />
-          </Routes>
+          <Switch>
+            <Route path='/category/:name' component={Category} />
+            <Route path='/product/:id' component={Product} />
+            <Route path='/cart' component={Cart} />
+            <Redirect to='/category/all' />
+          </Switch>
         </Main>
       </Wrapper>
     );

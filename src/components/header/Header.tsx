@@ -6,6 +6,7 @@ import { HeaderLink } from '../HeaderLink';
 import { CurrencySwitcher } from '../CurrencySwitcher';
 import { CartButton } from '../CartButton';
 import { Category } from '../../api/withCategoryList';
+import { withRouter } from 'react-router-dom';
 
 const StyledHeader = styled.header`
   margin-top: 1em;

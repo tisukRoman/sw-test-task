@@ -14,7 +14,8 @@ class HeaderLink extends Component<HeaderLinkProps> {
     return (
       <NavLink
         to={`/category/${name}`}
-        className={({ isActive }) => (isActive ? styles.active : styles.link)}
+        activeClassName={styles.active}
+        className={styles.link}
       >
         <div>{children}</div>
       </NavLink>

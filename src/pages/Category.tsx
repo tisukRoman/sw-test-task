@@ -2,7 +2,9 @@ import { Component } from 'react';
 import styled from 'styled-components';
 import { theme } from '../theme';
 import { CardsList } from '../components/CardsList';
-import { withProducts } from '../api/withProducts';
+import { Product, withProducts } from '../api/withProducts';
+import { capitalFirstLetter } from '../utils/capitalFirstLetter';
+import { withRouter } from 'react-router-dom';
 
 const CategoryTitle = styled.h2`
   margin-top: 2em;
@@ -13,28 +15,46 @@ const CategoryTitle = styled.h2`
 `;
 
 type CategoryProps = {
-  name?: string;
-  products?: any[];
+  data: {
+    loading: boolean;
+    error: any;
+    category: {
+      name?: string;
+      products?: Product[];
+    };
+  };
+  match: {
+    params: {
+      name?: string;
+    };
+  };
 };
 
-class Category extends Component<CategoryProps, {}> {
-  capitalFirstLetter = (text: string = 'unknown') => {
-    return text[0].toUpperCase() + text.slice(1)
-  }
+type CategoryState = {
+  name?: string;
+  products?: Product[];
+};
+
+class Category extends Component<CategoryProps, CategoryState> {
+  state = {
+    name: '',
+    products: [],
+  };
 
   render() {
+    console.log(this.props.match.params.name);
+    
+    const { loading, error, category } = this.props.data;
+    if (loading) return <h1>Loading...</h1>;
+    if (error) return <h1>Error...</h1>;
+
     return (
       <>
-        <CategoryTitle>{this.capitalFirstLetter(this.props.name)}</CategoryTitle>
-        <CardsList products={this.props.products}/>
+        <CategoryTitle>{capitalFirstLetter(category.name)}</CategoryTitle>
+        <CardsList products={category.products} />
       </>
     );
   }
 }
 
-export default withProducts(({ data: { loading, category, error } }) => {
-  if (loading) return <div>Loading</div>;
-  if (error) return <h1>ERROR</h1>;
-  if (!category) return <h1>Category was not found</h1>;
-  return <Category name={category.name} products={category.products} />;
-});
+export default withRouter(withProducts(Category));

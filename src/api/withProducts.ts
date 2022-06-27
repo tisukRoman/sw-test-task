@@ -45,9 +45,7 @@ export type Product = {
   prices: Price[];
 };
 
-type InputProps = {
-  input: { title: string };
-};
+type InputProps = any;
 
 type Response = {
   category: {
@@ -68,7 +66,7 @@ export const withProducts = graphql<
   Variables,
   ChildProps
 >(GET_PRODUCTS_BY_CATEGORY, {
-  options: ({ input }) => ({
-    variables: { input },
+  options: (props) => ({
+    variables: { input: { title: props.match.params.name } },
   }),
 });
