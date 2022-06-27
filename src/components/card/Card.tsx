@@ -78,7 +78,7 @@ class Card extends Component<CardProps> {
   render() {
     const { id, imgSrc, name, brand, inStock, price } = this.props;
     return (
-      <Link to={inStock ? `/product/${id}` : ''} className={styles.link}>
+      <Link to={`/product/${id}`} className={styles.link}>
         <CardWrapper inStock={inStock}>
           <Media>
             <PictureWrapper>

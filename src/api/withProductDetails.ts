@@ -3,7 +3,7 @@ import { ChildDataProps, graphql } from '@apollo/client/react/hoc';
 
 const GET_PRODUCT_DETAILS = gql`
   query product($id: String!) {
-    product(id: "apple-imac-2021") {
+    product(id: $id) {
       id
       name
       brand
@@ -55,7 +55,7 @@ type Price = {
   amount: number;
 };
 
-type Product = {
+export type ProductDetails = {
   id: string;
   name: string;
   brand: string;
@@ -68,12 +68,10 @@ type Product = {
 };
 
 export type Response = {
-  product: Product;
+  product: ProductDetails;
 };
 
-type InputProps = {
-  id: string;
-};
+type InputProps = any;
 
 type Variables = {
   id: string;
@@ -81,13 +79,13 @@ type Variables = {
 
 type ChildProps = ChildDataProps<InputProps, Response, Variables>;
 
-export const withProducts = graphql<
+export const withProductDetails = graphql<
   InputProps,
   Response,
   Variables,
   ChildProps
 >(GET_PRODUCT_DETAILS, {
-  options: ({ id }) => ({
-    variables: { id },
+  options: (props) => ({
+    variables: { id: props.match.params.id},
   }),
 });
