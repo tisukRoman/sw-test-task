@@ -1,0 +1,1 @@
+export { ProductAttribute } from './ProductAttribute';

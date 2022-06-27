@@ -5,10 +5,8 @@ import styled from 'styled-components';
 import { theme } from '../theme';
 import { Button } from '../components/Button';
 import { Picture } from '../components/Picture';
-import { SizePicker } from '../components/SizePicker';
-import { TextLabel } from '../components/TextLabel';
-import { ColorPicker } from '../components/ColorPicker';
 import { ProductDetails, withProductDetails } from '../api/withProductDetails';
+import { ProductAttribute } from '../components/ProductAttribute';
 
 const ProductPage = styled.div`
   margin-top: 4.5em;
@@ -20,7 +18,6 @@ const PictureList = styled.div`
   width: 10em;
   height: 32em;
   overflow: scroll;
-  overflow-x: hidden;
   text-align: center;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -50,12 +47,17 @@ const PictureWrapper = styled.div`
 
 const Info = styled.div`
   margin-left: 6em;
-  max-width: 18em;
-  min-height: 32em;
+  width: 20em;
+  height: 32em;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   font-family: ${theme.fonts.main};
+  overflow: scroll;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const InfoTitle = styled.h2`
@@ -71,10 +73,10 @@ const InfoSubTitle = styled.h2`
 const Price = styled.div`
   font-weight: bold;
   font-family: ${theme.fonts.main};
-  margin-bottom: 2em;
+  margin: 2em 0;
 `;
 
-const Description = styled.p`
+const Description = styled.div`
   margin-top: 2em;
   text-align: left;
   font-family: ${theme.fonts.main};
@@ -103,8 +105,8 @@ class Product extends Component<ProductProps, ProductState> {
   };
 
   render() {
-    console.log(this.props.data);
     const { loading, error, product } = this.props.data;
+
     if (loading) return <div>Loading...</div>;
     if (error) return <h1>Error</h1>;
 
@@ -130,11 +132,10 @@ class Product extends Component<ProductProps, ProductState> {
         <Info>
           <InfoTitle>{product.name}</InfoTitle>
           <InfoSubTitle>{product.brand}</InfoSubTitle>
-          <TextLabel margin='0.5em 0 0.5em 0'>SIZE:</TextLabel>
-          <SizePicker />
-          <TextLabel margin='2em 0 0.5em 0'>COLOR:</TextLabel>
-          <ColorPicker />
-          <TextLabel margin='1.5em 0 0.8em 0'>PRICE:</TextLabel>
+
+          {product.attributes.map((attr) => (
+            <ProductAttribute {...attr} key={attr.id} />
+          ))}
           <Price>
             {product.prices[0].currency.symbol}
             {product.prices[0].amount}

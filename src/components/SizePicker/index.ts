@@ -1,1 +1,0 @@
-export { SizePicker } from './SizePicker';

@@ -1,9 +1,7 @@
 import { Component } from 'react';
 import styled from 'styled-components';
 import { theme } from '../../theme';
-import { ColorPicker } from '../ColorPicker';
 import { CountPicker } from '../CountPicker';
-import { SizePicker } from '../SizePicker';
 import { TextLabel } from '../TextLabel';
 import { Picture } from '../Picture';
 import { Line } from '../Line';
@@ -64,9 +62,7 @@ class CartItem extends Component {
             <InfoSubTitle>Running Short</InfoSubTitle>
             <Price>$50.00</Price>
             <TextLabel margin='0.5em 0 0.5em 0'>SIZE:</TextLabel>
-            <SizePicker />
             <TextLabel margin='2em 0 0.5em 0'>COLOR:</TextLabel>
-            <ColorPicker />
           </Info>
           <CountAndImage>
             <CountPicker />
