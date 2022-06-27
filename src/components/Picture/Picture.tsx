@@ -10,11 +10,13 @@ const StyledPicture = styled.img`
 type PictureProps = {
   src: string;
   alt: string;
+  onClick?: React.MouseEventHandler<HTMLImageElement>;
 };
 
 class Picture extends Component<PictureProps> {
   render() {
-    return <StyledPicture src={this.props.src} alt={this.props.alt} />;
+    const { src, alt, onClick } = this.props;
+    return <StyledPicture onClick={onClick} src={src} alt={alt} />;
   }
 }
 

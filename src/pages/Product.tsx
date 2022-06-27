@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { v4 as uid } from 'uuid';
+import parse from 'html-react-parser';
 import styled from 'styled-components';
 import { theme } from '../theme';
 import { Button } from '../components/Button';
@@ -88,12 +89,22 @@ type ProductProps = {
   };
 };
 
-class Product extends Component<ProductProps> {
+type ProductState = {
+  selectedPicture: string;
+};
+
+class Product extends Component<ProductProps, ProductState> {
+  state = {
+    selectedPicture: '',
+  };
+
+  selectPicture = (src: string) => {
+    this.setState({ selectedPicture: src });
+  };
+
   render() {
     console.log(this.props.data);
-
     const { loading, error, product } = this.props.data;
-
     if (loading) return <div>Loading...</div>;
     if (error) return <h1>Error</h1>;
 
@@ -102,12 +113,19 @@ class Product extends Component<ProductProps> {
         <PictureList>
           {product.gallery.map((src) => (
             <PictureListWrapper key={uid()}>
-              <Picture src={src} alt='product picture' />
+              <Picture
+                src={src}
+                alt='product picture'
+                onClick={() => this.selectPicture(src)}
+              />
             </PictureListWrapper>
           ))}
         </PictureList>
         <PictureWrapper>
-          <Picture src={product.gallery[0]} alt='product selected picture' />
+          <Picture
+            src={this.state.selectedPicture || product.gallery[0]}
+            alt='selected product picture'
+          />
         </PictureWrapper>
         <Info>
           <InfoTitle>{product.name}</InfoTitle>
@@ -121,10 +139,10 @@ class Product extends Component<ProductProps> {
             {product.prices[0].currency.symbol}
             {product.prices[0].amount}
           </Price>
-          <Button variant='filled' disabled>
+          <Button variant='filled' disabled={!product.inStock}>
             ADD TO CART
           </Button>
-          <Description>{product.description}</Description>
+          <Description>{parse(product.description)}</Description>
         </Info>
       </ProductPage>
     );
