@@ -10,7 +10,7 @@ const GET_CURRENCY_LIST = gql`
   }
 `;
 
-type Currency = {
+export type Currency = {
   label: string;
   symbol: string;
 };
@@ -19,8 +19,8 @@ type Response = {
   currencies: Currency[];
 };
 
-type ChildProps = ChildDataProps<{}, Response>;
+type ChildProps = ChildDataProps<any, Response>;
 
-export const withCurrencyList = graphql<{}, Response, {}, ChildProps>(
+export const withCurrencyList = graphql<any, Response, {}, ChildProps>(
   GET_CURRENCY_LIST
 );

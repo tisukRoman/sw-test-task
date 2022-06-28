@@ -43,8 +43,6 @@ type HeaderProps = {
 
 class Header extends Component<HeaderProps> {
   render() {
-    console.log(this.props);
-
     const { loading, error, categories } = this.props.data;
 
     if (loading) return <div>Loading...</div>;
@@ -63,7 +61,7 @@ class Header extends Component<HeaderProps> {
           <Logo src={logo} alt='shop logo' />
         </LogoWrapper>
         <HeaderNavigation>
-          <CurrencySwitcher />
+          <CurrencySwitcher/>
           <CartButton />
         </HeaderNavigation>
       </StyledHeader>

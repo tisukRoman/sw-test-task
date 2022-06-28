@@ -13,7 +13,7 @@ export type Category = {
   name: string;
 };
 
-export type Response = {
+type Response = {
   categories: Category[];
 };
 

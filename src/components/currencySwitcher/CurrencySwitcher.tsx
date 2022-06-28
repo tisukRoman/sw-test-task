@@ -1,7 +1,9 @@
 import { Component } from 'react';
 import styled from 'styled-components';
-import arrow from '../../assets/vector.png';
 import { theme } from '../../theme';
+import { Currency, withCurrencyList } from '../../api/withCurrencyList';
+import arrow from '../../assets/vector.png';
+import { v4 as uid } from 'uuid';
 
 const StyledCurrencySwitcher = styled.div`
   width: 3em;
@@ -13,7 +15,7 @@ const StyledCurrencySwitcher = styled.div`
   border: none;
 `;
 
-const ArrowIcon = styled.img<CurrencySwitcherState>`
+const ArrowIcon = styled.img<SwitcherState>`
   width: 10px;
   height: 6px;
   margin-left: 6px;
@@ -39,12 +41,20 @@ const CurrencyOption = styled.div`
   }
 `;
 
-type CurrencySwitcherState = {
+type SwitcherProps = {
+  data: {
+    loading: boolean;
+    error: any;
+    currencies: Currency[];
+  };
+};
+
+type SwitcherState = {
   isActive: boolean;
 };
 
-class CurrencySwitcher extends Component<{}, CurrencySwitcherState> {
-  constructor(props: {}) {
+class CurrencySwitcher extends Component<SwitcherProps, SwitcherState> {
+  constructor(props: SwitcherProps) {
     super(props);
     this.state = {
       isActive: false,
@@ -56,21 +66,30 @@ class CurrencySwitcher extends Component<{}, CurrencySwitcherState> {
   };
 
   render() {
+    const { loading, error, currencies } = this.props.data;
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <h1>Error</h1>;
+
     return (
       <StyledCurrencySwitcher onClick={this.toggleSwitcher}>
         <div>
-          ${' '}
-          <ArrowIcon
-            src={arrow}
-            alt='currency switcher'
-            isActive={this.state.isActive}
-          />
+          <>
+            {'$'}{' '}
+            <ArrowIcon
+              src={arrow}
+              alt='currency switcher'
+              isActive={this.state.isActive}
+            />
+          </>
         </div>
         {this.state.isActive && (
           <OptionsList>
-            <CurrencyOption>$ USD</CurrencyOption>
-            <CurrencyOption>€ EUR</CurrencyOption>
-            <CurrencyOption>¥ JPY</CurrencyOption>
+            {currencies.map(({ label, symbol }) => (
+              <CurrencyOption key={uid()}>
+                {symbol} {label}
+              </CurrencyOption>
+            ))}
           </OptionsList>
         )}
       </StyledCurrencySwitcher>
@@ -78,4 +97,4 @@ class CurrencySwitcher extends Component<{}, CurrencySwitcherState> {
   }
 }
 
-export { CurrencySwitcher };
+export const CurrencySwitcherWithFetch = withCurrencyList(CurrencySwitcher);

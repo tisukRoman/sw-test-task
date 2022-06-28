@@ -7,19 +7,11 @@ import { Header } from './components/Header';
 import { Main } from './components/Main';
 import { Wrapper } from './components/Wrapper';
 
-type AppState = {
-  selectedCurrency: string;
-};
-
-class App extends Component<{}, AppState> {
-  state = {
-    selectedCurrency: 'USD',
-  };
-
+class App extends Component<{}, {}> {
   render() {
     return (
       <Wrapper>
-        <Header/>
+        <Header />
         <Main>
           <Switch>
             <Route path='/category/:name' component={Category} />
