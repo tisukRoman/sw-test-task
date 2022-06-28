@@ -1,9 +1,10 @@
 import { Component } from 'react';
+import { v4 as uid } from 'uuid';
+import { Currency } from '../../types';
 import styled from 'styled-components';
 import { theme } from '../../theme';
-import { Currency, withCurrencyList } from '../../api/withCurrencyList';
+import { withCurrencyList } from '../../api/withCurrencyList';
 import arrow from '../../assets/vector.png';
-import { v4 as uid } from 'uuid';
 
 const StyledCurrencySwitcher = styled.div`
   width: 3em;

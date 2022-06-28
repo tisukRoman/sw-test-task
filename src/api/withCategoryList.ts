@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import { ChildDataProps, graphql } from '@apollo/client/react/hoc';
+import { Category } from '../types';
 
 const GET_CATEGORY_LIST = gql`
   query {
@@ -8,10 +9,6 @@ const GET_CATEGORY_LIST = gql`
     }
   }
 `;
-
-export type Category = {
-  name: string;
-};
 
 type Response = {
   categories: Category[];

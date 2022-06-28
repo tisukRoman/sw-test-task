@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import { ChildDataProps, graphql } from '@apollo/client/react/hoc';
+import { Currency } from '../types';
 
 const GET_CURRENCY_LIST = gql`
   query {
@@ -9,11 +10,6 @@ const GET_CURRENCY_LIST = gql`
     }
   }
 `;
-
-export type Currency = {
-  label: string;
-  symbol: string;
-};
 
 type Response = {
   currencies: Currency[];

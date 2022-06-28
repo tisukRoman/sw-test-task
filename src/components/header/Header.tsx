@@ -5,7 +5,8 @@ import logo from '../../assets/logo.png';
 import { HeaderLink } from '../HeaderLink';
 import { CurrencySwitcher } from '../CurrencySwitcher';
 import { CartButton } from '../CartButton';
-import { Category, withCategoryList } from '../../api/withCategoryList';
+import { withCategoryList } from '../../api/withCategoryList';
+import { Category } from '../../types';
 
 const StyledHeader = styled.header`
   margin-top: 1em;
@@ -61,7 +62,7 @@ class Header extends Component<HeaderProps> {
           <Logo src={logo} alt='shop logo' />
         </LogoWrapper>
         <HeaderNavigation>
-          <CurrencySwitcher/>
+          <CurrencySwitcher />
           <CartButton />
         </HeaderNavigation>
       </StyledHeader>

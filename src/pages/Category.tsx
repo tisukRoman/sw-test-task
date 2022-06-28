@@ -2,9 +2,10 @@ import { Component } from 'react';
 import styled from 'styled-components';
 import { theme } from '../theme';
 import { CardsList } from '../components/CardsList';
-import { Product, withProducts } from '../api/withProducts';
+import { withProducts } from '../api/withProducts';
 import { capitalFirstLetter } from '../utils/capitalFirstLetter';
 import { withRouter } from 'react-router-dom';
+import { Product } from '../types';
 
 const CategoryTitle = styled.h2`
   margin-top: 2em;

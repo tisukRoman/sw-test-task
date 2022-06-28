@@ -3,11 +3,12 @@ import { v4 as uid } from 'uuid';
 import parse from 'html-react-parser';
 import styled from 'styled-components';
 import { theme } from '../theme';
-import { ProductDetails, withProductDetails } from '../api/withProductDetails';
+import { withProductDetails } from '../api/withProductDetails';
 import { toAttributesState } from '../utils/toAttributesState';
 import { Button } from '../components/Button';
 import { Picture } from '../components/Picture';
 import { ProductAttribute } from '../components/ProductAttribute';
+import { ProductDetails } from '../types';
 
 const ProductPage = styled.div`
   margin-top: 4.5em;
