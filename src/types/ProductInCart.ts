@@ -1,3 +1,4 @@
+import { Attribute } from './Attribute';
 import { Price } from './Price';
 
 export type ProductInCart = {
@@ -6,11 +7,9 @@ export type ProductInCart = {
   brand: string;
   inStock: boolean;
   gallery: string[];
-  description: string;
-  category: string;
-  selectedAttributes: {
-    [name: string]: string;
-  } | null;
+  attributes: Attribute[];
   prices: Price[];
+
+  selectedAttributes: {[name: string]: string};
   count: number;
 };

@@ -19,15 +19,33 @@ const Count = styled.div`
   font-weight: 500;
 `;
 
-class CountPicker extends Component {
+type CountPickerProps = {
+  onDecrease: () => void;
+  onIncrease: () => void;
+  count: number;
+};
+
+class CountPicker extends Component<CountPickerProps> {
   render() {
+    const { count, onDecrease, onIncrease } = this.props;
+
     return (
       <CountPickerWrapper>
-        <Button variant='outlined' height='2.8em' width='2.8em'>
+        <Button
+          variant='outlined'
+          height='2.8em'
+          width='2.8em'
+          onClick={onIncrease}
+        >
           <Picture src={plusIcon} alt='increase product count' />
         </Button>
-        <Count>12</Count>
-        <Button variant='outlined' height='2.8em' width='2.8em'>
+        <Count>{count}</Count>
+        <Button
+          variant='outlined'
+          height='2.8em'
+          width='2.8em'
+          onClick={onDecrease}
+        >
           <Picture src={minusIcon} alt='decrease product count' />
         </Button>
       </CountPickerWrapper>

@@ -2,9 +2,10 @@ import { Component } from 'react';
 import styled from 'styled-components';
 import { theme } from '../../theme';
 import { CountPicker } from '../CountPicker';
-import { TextLabel } from '../TextLabel';
 import { Picture } from '../Picture';
 import { Line } from '../Line';
+import { ProductInCart } from '../../types';
+import { ProductAttribute } from '../ProductAttribute';
 
 const CartItemWrapper = styled.div`
   padding: 1.5em;
@@ -52,20 +53,42 @@ const PictureWrapper = styled.div`
   height: 100%;
 `;
 
-class CartItem extends Component {
+type CartItemProps = {
+  product: ProductInCart;
+};
+
+class CartItem extends Component<CartItemProps> {
   render() {
+    const { product } = this.props;
+    const { prices, attributes, name, brand, selectedAttributes, count } = product;
+
     return (
       <>
         <CartItemWrapper>
           <Info>
-            <InfoTitle>Apollo</InfoTitle>
-            <InfoSubTitle>Running Short</InfoSubTitle>
-            <Price>$50.00</Price>
-            <TextLabel margin='0.5em 0 0.5em 0'>SIZE:</TextLabel>
-            <TextLabel margin='2em 0 0.5em 0'>COLOR:</TextLabel>
+            <InfoTitle>{name}</InfoTitle>
+            <InfoSubTitle>{brand}</InfoSubTitle>
+            <Price>
+              {prices[0].currency.symbol}
+              {prices[0].amount}
+            </Price>
+            {product.attributes.map((attr) => (
+              <ProductAttribute
+                onSelect={() => console.log('Select')}
+                key={attr.id}
+                activeValue={
+                  selectedAttributes ? selectedAttributes[attr.name] : null
+                }
+                {...attr}
+              />
+            ))}
           </Info>
           <CountAndImage>
-            <CountPicker />
+            <CountPicker
+              count={count}
+              onDecrease={() => console.log('Count down')}
+              onIncrease={() => console.log('Count up')}
+            />
             <PictureWrapper>
               <Picture
                 src='https://cdn.shopify.com/s/files/1/0281/3837/3173/files/WhatsApp_Image_2022-06-01_at_12.54.28_AM.jpg?v=1654098193'

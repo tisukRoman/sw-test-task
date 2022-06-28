@@ -43,11 +43,10 @@ class Category extends Component<CategoryProps, CategoryState> {
   };
 
   render() {
-    console.log(this.props.match.params.name);
-    
     const { loading, error, category } = this.props.data;
     if (loading) return <h1>Loading...</h1>;
     if (error) return <h1>Error...</h1>;
+    if (!category) return <h1>Error...</h1>;
 
     return (
       <>

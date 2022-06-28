@@ -132,6 +132,8 @@ class Product extends Component<ProductProps, ProductState> {
 
   render() {
     console.log(this.state);
+    console.log(this.props.data.product);
+    
 
     const { loading, error, product } = this.props.data;
     const { attributes } = this.state;

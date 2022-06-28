@@ -1,9 +1,12 @@
 import { Component } from 'react';
-import { v4 as uid } from 'uuid';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { theme } from '../theme';
 import { CartItem } from '../components/CartItem';
+import { CartState } from '../store/cartReducer';
 import { Line } from '../components/Line';
+import { ProductInCart } from '../types';
+import { TextLabel } from '../components/TextLabel';
 
 const CartTitle = styled.h2`
   margin-top: 2em;
@@ -20,20 +23,35 @@ const ItemsList = styled.ul`
   padding: 0;
 `;
 
-class Cart extends Component {
+type CartProps = {
+  products: ProductInCart[];
+};
+
+class Cart extends Component<CartProps> {
   render() {
+    const { products } = this.props;
+    console.log(this.props);
+
     return (
       <>
         <CartTitle>CART</CartTitle>
         <Line />
         <ItemsList>
-          {[0, 0, 0, 0].map((item) => (
-            <CartItem key={uid()} />
-          ))}
+          {products?.length ? (
+            products.map((product) => (
+              <CartItem key={product.id} product={product} />
+            ))
+          ) : (
+            <TextLabel>Empty...</TextLabel>
+          )}
         </ItemsList>
       </>
     );
   }
 }
 
-export default Cart;
+const mapStateToProps = (state: {cart: CartState}) => ({
+  products: state.cart.products
+});
+
+export default connect(mapStateToProps, {})(Cart);
