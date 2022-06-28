@@ -1,14 +1,16 @@
 import { Component } from 'react';
+import { connect } from 'react-redux';
 import { v4 as uid } from 'uuid';
 import parse from 'html-react-parser';
+import { ProductDetails, ProductInCart } from '../types';
 import styled from 'styled-components';
 import { theme } from '../theme';
 import { withProductDetails } from '../api/withProductDetails';
 import { toAttributesState } from '../utils/toAttributesState';
+import { ProductAttribute } from '../components/ProductAttribute';
 import { Button } from '../components/Button';
 import { Picture } from '../components/Picture';
-import { ProductAttribute } from '../components/ProductAttribute';
-import { ProductDetails } from '../types';
+import { addProduct } from '../store/cartReducer';
 
 const ProductPage = styled.div`
   margin-top: 4.5em;
@@ -91,6 +93,7 @@ type ProductProps = {
     loading: boolean;
     error: any;
   };
+  addProduct: any;
 };
 
 type ProductState = {
@@ -109,7 +112,6 @@ class Product extends Component<ProductProps, ProductState> {
   componentDidUpdate() {
     const { product } = this.props.data;
     const { attributes } = this.state;
-
     if (product?.attributes.length && !attributes) {
       const activeAttributes = toAttributesState(product.attributes);
       this.setState({
@@ -117,10 +119,6 @@ class Product extends Component<ProductProps, ProductState> {
       });
     }
   }
-
-  selectPicture = (src: string) => {
-    this.setState({ selectedPicture: src });
-  };
 
   selectAttributeValue = (name: string, value: string) => {
     this.setState((prev) => {
@@ -130,11 +128,24 @@ class Product extends Component<ProductProps, ProductState> {
     });
   };
 
-  render() {
-    console.log(this.state);
-    console.log(this.props.data.product);
-    
+  selectPicture = (src: string) => {
+    this.setState({ selectedPicture: src });
+  };
 
+  addToCart = () => {
+    const productToAdd: ProductInCart = {
+      ...this.props.data.product,
+      count: 1,
+      selectedAttributes: this.state.attributes,
+    };
+    this.props.addProduct(productToAdd);
+  };
+
+  render() {
+    console.log(this.props);
+    console.log(this.state);
+    
+    
     const { loading, error, product } = this.props.data;
     const { attributes } = this.state;
 
@@ -175,7 +186,7 @@ class Product extends Component<ProductProps, ProductState> {
             {product.prices[0].currency.symbol}
             {product.prices[0].amount}
           </Price>
-          <Button variant='filled' disabled={!product.inStock}>
+          <Button variant='filled' disabled={!product.inStock} onClick={this.addToCart}>
             ADD TO CART
           </Button>
           <Description>{parse(product.description)}</Description>
@@ -185,4 +196,4 @@ class Product extends Component<ProductProps, ProductState> {
   }
 }
 
-export default withProductDetails(Product);
+export default withProductDetails(connect(null, { addProduct })(Product));

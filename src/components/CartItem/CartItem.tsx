@@ -6,10 +6,11 @@ import { Picture } from '../Picture';
 import { Line } from '../Line';
 import { ProductInCart } from '../../types';
 import { ProductAttribute } from '../ProductAttribute';
+import { GalleryNavigation } from '../GalleryNavigation';
 
 const CartItemWrapper = styled.div`
-  padding: 1.5em;
-  height: 18em;
+  padding: 1.5em 0 2em 0;
+  height: 16em;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -37,7 +38,7 @@ const InfoSubTitle = styled.h2`
 const Price = styled.div`
   font-weight: bold;
   font-family: ${theme.fonts.main};
-  margin: 1em 0;
+  margin: 1em 0 0 0;
   font-size: 1.2rem;
 `;
 
@@ -51,16 +52,72 @@ const CountAndImage = styled.div`
 const PictureWrapper = styled.div`
   width: 12.5em;
   height: 100%;
+  position: relative;
 `;
 
 type CartItemProps = {
   product: ProductInCart;
 };
 
-class CartItem extends Component<CartItemProps> {
+type CartItemState = {
+  selectedPicture: string;
+  attributes: {
+    [name: string]: string;
+  } | null;
+  count: number;
+};
+
+class CartItem extends Component<CartItemProps, CartItemState> {
+  state = {
+    selectedPicture: '',
+    attributes: null,
+    count: 1,
+  };
+
+  componentDidMount() {
+    const { selectedAttributes, gallery } = this.props.product;
+    this.setState({
+      attributes: selectedAttributes,
+      selectedPicture: gallery[0],
+      count: 1,
+    });
+  }
+
+  selectAttributeValue = (name: string, value: string) => {
+    this.setState((prev) => {
+      const updatedAttributes = { ...prev.attributes };
+      updatedAttributes[name] = value;
+      return { attributes: updatedAttributes };
+    });
+  };
+
+  increaseCount = () => {
+    this.setState((prev) => ({ count: prev.count + 1 }));
+  };
+
+  decreaseCount = () => {
+    if (this.state.count > 1) {
+      this.setState((prev) => ({ count: prev.count - 1 }));
+    }
+  };
+
+  scrollPicture = (direction: 'left' | 'right') => {
+    const { gallery } = this.props.product;
+    const { selectedPicture } = this.state;
+    const i = gallery.indexOf(selectedPicture);
+    if (direction === 'left' && gallery[i - 1]) {
+      this.setState({ selectedPicture: gallery[i - 1] });
+    }
+    if (direction === 'right' && gallery[i + 1]) {
+      this.setState({ selectedPicture: gallery[i + 1] });
+    }
+  };
+
   render() {
-    const { product } = this.props;
-    const { prices, attributes, name, brand, selectedAttributes, count } = product;
+    const { prices, name, brand, attributes } = this.props.product;
+    const { selectedPicture, attributes: ActiveAttrs } = this.state;
+
+    console.log(this.state);
 
     return (
       <>
@@ -72,27 +129,26 @@ class CartItem extends Component<CartItemProps> {
               {prices[0].currency.symbol}
               {prices[0].amount}
             </Price>
-            {product.attributes.map((attr) => (
+            {attributes.map((attr) => (
               <ProductAttribute
-                onSelect={() => console.log('Select')}
-                key={attr.id}
-                activeValue={
-                  selectedAttributes ? selectedAttributes[attr.name] : null
-                }
                 {...attr}
+                key={attr.id}
+                onSelect={this.selectAttributeValue}
+                activeValue={ActiveAttrs ? ActiveAttrs[attr.name] : null}
               />
             ))}
           </Info>
           <CountAndImage>
             <CountPicker
-              count={count}
-              onDecrease={() => console.log('Count down')}
-              onIncrease={() => console.log('Count up')}
+              count={this.state.count}
+              onIncrease={this.increaseCount}
+              onDecrease={this.decreaseCount}
             />
             <PictureWrapper>
-              <Picture
-                src='https://cdn.shopify.com/s/files/1/0281/3837/3173/files/WhatsApp_Image_2022-06-01_at_12.54.28_AM.jpg?v=1654098193'
-                alt='Cart Item Picture'
+              <Picture src={selectedPicture} alt='selected product picture' />
+              <GalleryNavigation
+                onNext={this.scrollPicture}
+                onPrevious={this.scrollPicture}
               />
             </PictureWrapper>
           </CountAndImage>

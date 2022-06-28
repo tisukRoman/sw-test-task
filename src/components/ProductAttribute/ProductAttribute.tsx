@@ -20,6 +20,7 @@ const TextItem = styled.div<{ isActive: boolean }>`
   width: 4em;
   border: 1px solid #000;
   margin-right: 1em;
+  font-weight: 500;
   cursor: pointer;
   transition: 0.2s;
   &:hover {

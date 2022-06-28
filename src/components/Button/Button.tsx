@@ -38,7 +38,7 @@ type ButtonProps = {
   height?: string;
   fontSize?: string;
   disabled?: boolean;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClick?: () => void;
 };
 
 class Button extends Component<ButtonProps> {

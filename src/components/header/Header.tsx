@@ -1,12 +1,13 @@
 import { Component } from 'react';
 import { v4 as uid } from 'uuid';
+import { Category } from '../../types';
 import styled from 'styled-components';
 import logo from '../../assets/logo.png';
 import { HeaderLink } from '../HeaderLink';
 import { CurrencySwitcher } from '../CurrencySwitcher';
 import { CartButton } from '../CartButton';
 import { withCategoryList } from '../../api/withCategoryList';
-import { Category } from '../../types';
+import { Link } from 'react-router-dom';
 
 const StyledHeader = styled.header`
   margin-top: 1em;
@@ -63,7 +64,9 @@ class Header extends Component<HeaderProps> {
         </LogoWrapper>
         <HeaderNavigation>
           <CurrencySwitcher />
-          <CartButton />
+          <Link to='/cart'>
+            <CartButton />
+          </Link>
         </HeaderNavigation>
       </StyledHeader>
     );

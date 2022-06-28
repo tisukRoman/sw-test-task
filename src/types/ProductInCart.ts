@@ -10,6 +10,6 @@ export type ProductInCart = {
   attributes: Attribute[];
   prices: Price[];
 
-  selectedAttributes: {[name: string]: string};
+  selectedAttributes: {[name: string]: string} | null;
   count: number;
 };
