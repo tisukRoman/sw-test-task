@@ -6,21 +6,20 @@ import Cart from './pages/Cart';
 import { Header } from './components/Header';
 import { Main } from './components/Main';
 import { Wrapper } from './components/Wrapper';
-import {
-  Category as CategoryType,
-  withCategoryList,
-} from './api/withCategoryList';
 
-type AppProps = {
-  categories?: CategoryType[];
+type AppState = {
+  selectedCurrency: string;
 };
 
-class App extends Component<AppProps> {
+class App extends Component<{}, AppState> {
+  state = {
+    selectedCurrency: 'USD',
+  };
+
   render() {
-    const { categories } = this.props;
     return (
       <Wrapper>
-        <Header categories={categories} />
+        <Header/>
         <Main>
           <Switch>
             <Route path='/category/:name' component={Category} />
@@ -34,8 +33,4 @@ class App extends Component<AppProps> {
   }
 }
 
-export default withCategoryList(({ data: { loading, categories, error } }) => {
-  if (loading) return <div>Loading</div>;
-  if (error) return <h1>ERROR</h1>;
-  return <App categories={categories} />;
-});
+export default App;

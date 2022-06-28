@@ -30,10 +30,10 @@ const TextItem = styled.div<{ isActive: boolean }>`
 
 const ColorItem = styled.div<{ value: string; isActive: boolean }>`
   padding: 0.1em;
-  height: 2em;
-  width: 2em;
+  height: 1.5em;
+  width: 1.5em;
   border: 3px solid
-    ${({ isActive }) => (isActive ? theme.colors.active : '#e2e2e2')};
+    ${({ isActive }) => (isActive ? theme.colors.active : '#ffffff')};
   margin-right: 1em;
   cursor: pointer;
   transition: 0.2s;

@@ -1,1 +1,1 @@
-export { Header } from './Header';
+export { HeaderWithCategories as Header } from './Header';

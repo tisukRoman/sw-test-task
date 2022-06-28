@@ -5,8 +5,7 @@ import logo from '../../assets/logo.png';
 import { HeaderLink } from '../HeaderLink';
 import { CurrencySwitcher } from '../CurrencySwitcher';
 import { CartButton } from '../CartButton';
-import { Category } from '../../api/withCategoryList';
-import { withRouter } from 'react-router-dom';
+import { Category, withCategoryList } from '../../api/withCategoryList';
 
 const StyledHeader = styled.header`
   margin-top: 1em;
@@ -35,12 +34,22 @@ const Logo = styled.img`
 `;
 
 type HeaderProps = {
-  categories?: Category[];
+  data: {
+    categories: Category[];
+    loading: boolean;
+    error: any;
+  };
 };
 
 class Header extends Component<HeaderProps> {
   render() {
-    const { categories } = this.props;
+    console.log(this.props);
+
+    const { loading, error, categories } = this.props.data;
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error</div>;
+
     return (
       <StyledHeader>
         <HeaderNavigation>
@@ -62,4 +71,4 @@ class Header extends Component<HeaderProps> {
   }
 }
 
-export { Header };
+export const HeaderWithCategories = withCategoryList(Header);

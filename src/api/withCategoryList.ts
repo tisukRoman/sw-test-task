@@ -17,7 +17,7 @@ export type Response = {
   categories: Category[];
 };
 
-export type ChildProps = ChildDataProps<{}, Response>;
+type ChildProps = ChildDataProps<any, Response, {}>;
 
 export const withCategoryList = graphql<{}, Response, {}, ChildProps>(
   GET_CATEGORY_LIST
