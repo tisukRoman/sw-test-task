@@ -2,7 +2,9 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme } from '../../theme';
+import { Price as PriceType } from '../../types';
 import { Picture } from '../Picture';
+import { Price } from '../Price';
 import styles from './Card.module.css';
 
 const CardWrapper = styled.div<{ inStock: boolean }>`
@@ -45,11 +47,6 @@ const CardTitle = styled.div`
   font-weight: 400;
 `;
 
-const CardPrice = styled.div`
-  font-family: ${theme.fonts.main};
-  font-weight: 500;
-`;
-
 const OutOfStockTitle = styled.div<{ inStock: boolean }>`
   ${({ inStock }) => inStock && 'display: none'};
   font-family: ${theme.fonts.main};
@@ -65,18 +62,12 @@ type CardProps = {
   brand: string;
   inStock: boolean;
   imgSrc: string;
-  price: {
-    currency: {
-      label: string;
-      symbol: string;
-    };
-    amount: number;
-  };
+  prices: PriceType[];
 };
 
 class Card extends Component<CardProps> {
   render() {
-    const { id, imgSrc, name, brand, inStock, price } = this.props;
+    const { id, imgSrc, name, brand, inStock, prices } = this.props;
     return (
       <Link to={`/product/${id}`} className={styles.link}>
         <CardWrapper inStock={inStock}>
@@ -88,10 +79,7 @@ class Card extends Component<CardProps> {
             <CardTitle>
               {name} {brand}
             </CardTitle>
-            <CardPrice>
-              {price.currency.symbol}
-              {price.amount}
-            </CardPrice>
+            <Price prices={prices}/>
           </Media>
         </CardWrapper>
       </Link>

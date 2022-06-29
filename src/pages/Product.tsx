@@ -13,6 +13,7 @@ import { Picture } from '../components/Picture';
 import { Button } from '../components/Button';
 import { addProduct } from '../store/cartReducer';
 import { getFromLocalStorage, setToLocalStorage } from '../utils';
+import { Price } from '../components/Price';
 
 const ProductPage = styled.div`
   margin-top: 4.5em;
@@ -74,12 +75,6 @@ const InfoTitle = styled.h2`
 const InfoSubTitle = styled.h2`
   margin-top: 0em;
   font-weight: 400;
-`;
-
-const Price = styled.div`
-  font-weight: bold;
-  font-family: ${theme.fonts.main};
-  margin: 2em 0;
 `;
 
 const Description = styled.div`
@@ -182,10 +177,7 @@ class Product extends Component<ProductProps, ProductState> {
               {...attr}
             />
           ))}
-          <Price>
-            {product.prices[0].currency.symbol}
-            {product.prices[0].amount}
-          </Price>
+          <Price prices={product.prices} margin='1.5em 0 2em 0' size='big' />
           <Button
             variant='filled'
             disabled={!product.inStock}

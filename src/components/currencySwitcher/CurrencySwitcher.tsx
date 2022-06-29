@@ -117,8 +117,6 @@ const mapDispatchToProps = {
   setCurrency,
 };
 
-/* export const CurrencySwitcherWrapped =withCurrencyList(connect(mapStateToProps, mapDispatchToProps)(CurrencySwitcher))
- */
 export const CurrencySwitcherWrapped = compose(
   connect(mapStateToProps, mapDispatchToProps),
   withCurrencyList

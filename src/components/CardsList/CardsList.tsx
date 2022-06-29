@@ -28,7 +28,7 @@ class CardsList extends Component<CardListProps> {
                 brand={card.brand}
                 inStock={card.inStock}
                 imgSrc={card.gallery[0]}
-                price={card.prices[0]}
+                prices={card.prices}
               />
             ))
           ) : (

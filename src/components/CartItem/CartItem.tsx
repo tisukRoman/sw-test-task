@@ -15,6 +15,7 @@ import {
   decreaseProductCount,
   selectProductAttributeValue,
 } from '../../store/cartReducer';
+import { Price } from '../Price';
 
 const CartItemWrapper = styled.div`
   padding: 1.5em 0 2em 0;
@@ -41,13 +42,6 @@ const InfoTitle = styled.h2`
 const InfoSubTitle = styled.h2`
   margin: 0;
   font-weight: 400;
-`;
-
-const Price = styled.div`
-  font-weight: bold;
-  font-family: ${theme.fonts.main};
-  margin: 1em 0 0 0;
-  font-size: 1.2rem;
 `;
 
 const CountAndImage = styled.div`
@@ -131,10 +125,7 @@ class CartItem extends Component<CartItemProps, CartItemState> {
           <Info>
             <InfoTitle>{name}</InfoTitle>
             <InfoSubTitle>{brand}</InfoSubTitle>
-            <Price>
-              {prices[0].currency.symbol}
-              {prices[0].amount}
-            </Price>
+            <Price prices={prices} margin='1em 0 0 0' size='big'/>
             {attributes.map((attr) => (
               <ProductAttribute
                 {...attr}
