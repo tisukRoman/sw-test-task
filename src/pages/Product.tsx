@@ -1,15 +1,16 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { v4 as uid } from 'uuid';
 import parse from 'html-react-parser';
-import { ProductDetails, ProductInCart } from '../types';
 import styled from 'styled-components';
 import { theme } from '../theme';
+import { ProductDetails, ProductInCart } from '../types';
 import { withProductDetails } from '../api/withProductDetails';
 import { toAttributesState } from '../utils/toAttributesState';
 import { ProductAttribute } from '../components/ProductAttribute';
-import { Button } from '../components/Button';
 import { Picture } from '../components/Picture';
+import { Button } from '../components/Button';
 import { addProduct } from '../store/cartReducer';
 
 const ProductPage = styled.div`
@@ -93,7 +94,7 @@ type ProductProps = {
     loading: boolean;
     error: any;
   };
-  addProduct: any;
+  addProduct: ActionCreatorWithPayload<ProductInCart, string>;
 };
 
 type ProductState = {
@@ -144,8 +145,7 @@ class Product extends Component<ProductProps, ProductState> {
   render() {
     console.log(this.props);
     console.log(this.state);
-    
-    
+
     const { loading, error, product } = this.props.data;
     const { attributes } = this.state;
 
@@ -186,7 +186,11 @@ class Product extends Component<ProductProps, ProductState> {
             {product.prices[0].currency.symbol}
             {product.prices[0].amount}
           </Price>
-          <Button variant='filled' disabled={!product.inStock} onClick={this.addToCart}>
+          <Button
+            variant='filled'
+            disabled={!product.inStock}
+            onClick={this.addToCart}
+          >
             ADD TO CART
           </Button>
           <Description>{parse(product.description)}</Description>

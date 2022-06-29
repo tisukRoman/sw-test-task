@@ -1,1 +1,1 @@
-export { CartItem } from './CartItem';
+export { CartItemWithConnect as CartItem } from './CartItem';

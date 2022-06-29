@@ -1,12 +1,15 @@
 import { Component } from 'react';
+import { connect } from 'react-redux';
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import styled from 'styled-components';
 import { theme } from '../../theme';
+import { ProductInCart } from '../../types';
+import { removeProduct } from '../../store/cartReducer';
+import { GalleryNavigation } from '../GalleryNavigation';
+import { ProductAttribute } from '../ProductAttribute';
 import { CountPicker } from '../CountPicker';
 import { Picture } from '../Picture';
 import { Line } from '../Line';
-import { ProductInCart } from '../../types';
-import { ProductAttribute } from '../ProductAttribute';
-import { GalleryNavigation } from '../GalleryNavigation';
 
 const CartItemWrapper = styled.div`
   padding: 1.5em 0 2em 0;
@@ -57,6 +60,7 @@ const PictureWrapper = styled.div`
 
 type CartItemProps = {
   product: ProductInCart;
+  removeProduct: ActionCreatorWithPayload<{ id: string }, string>;
 };
 
 type CartItemState = {
@@ -71,14 +75,13 @@ class CartItem extends Component<CartItemProps, CartItemState> {
   state = {
     selectedPicture: '',
     attributes: null,
-    count: 1,
+    count: 0,
   };
 
   componentDidMount() {
-    const { selectedAttributes, gallery } = this.props.product;
     this.setState({
-      attributes: selectedAttributes,
-      selectedPicture: gallery[0],
+      attributes: this.props.product.selectedAttributes,
+      selectedPicture: this.props.product.gallery[0],
       count: 1,
     });
   }
@@ -98,6 +101,8 @@ class CartItem extends Component<CartItemProps, CartItemState> {
   decreaseCount = () => {
     if (this.state.count > 1) {
       this.setState((prev) => ({ count: prev.count - 1 }));
+    } else {
+      this.props.removeProduct({ id: this.props.product.id });
     }
   };
 
@@ -116,8 +121,6 @@ class CartItem extends Component<CartItemProps, CartItemState> {
   render() {
     const { prices, name, brand, attributes } = this.props.product;
     const { selectedPicture, attributes: ActiveAttrs } = this.state;
-
-    console.log(this.state);
 
     return (
       <>
@@ -159,4 +162,5 @@ class CartItem extends Component<CartItemProps, CartItemState> {
   }
 }
 
-export { CartItem };
+const CartItemWithConnect = connect(null, { removeProduct })(CartItem);
+export { CartItemWithConnect };
