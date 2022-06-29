@@ -12,6 +12,7 @@ import { ProductAttribute } from '../components/ProductAttribute';
 import { Picture } from '../components/Picture';
 import { Button } from '../components/Button';
 import { addProduct } from '../store/cartReducer';
+import { getFromLocalStorage, setToLocalStorage } from '../utils';
 
 const ProductPage = styled.div`
   margin-top: 4.5em;
@@ -140,6 +141,8 @@ class Product extends Component<ProductProps, ProductState> {
       selectedAttributes: this.state.attributes,
     };
     this.props.addProduct(productToAdd);
+    const cartProducts = getFromLocalStorage('cartItems', []);
+    setToLocalStorage('cartItems', [...cartProducts, productToAdd]);
   };
 
   render() {

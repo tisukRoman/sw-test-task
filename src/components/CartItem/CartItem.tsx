@@ -122,7 +122,8 @@ class CartItem extends Component<CartItemProps, CartItemState> {
   };
 
   render() {
-    const { prices, name, brand, attributes, count, selectedAttributes } = this.props.product;
+    const { prices, name, brand, attributes, count, selectedAttributes } =
+      this.props.product;
 
     return (
       <>
@@ -139,7 +140,9 @@ class CartItem extends Component<CartItemProps, CartItemState> {
                 {...attr}
                 key={attr.id}
                 onSelect={this.selectAttributeValue}
-                activeValue={selectedAttributes && selectedAttributes[attr.name]}
+                activeValue={
+                  selectedAttributes && selectedAttributes[attr.name]
+                }
               />
             ))}
           </Info>
