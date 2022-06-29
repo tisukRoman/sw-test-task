@@ -1,15 +1,17 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { getFromLocalStorage } from '../utils';
 import { cartReducer } from './cartReducer';
+import { currencyReducer } from './currencyReducer';
 
 const rootReducer = combineReducers({
   cart: cartReducer,
+  currency: currencyReducer,
 });
 
 const initialState = {
   cart: {
-    products: getFromLocalStorage('cartItems', [])
-  },
+    products: getFromLocalStorage('cartItems', []),
+  }
 };
 
 export const setupStore = () => {

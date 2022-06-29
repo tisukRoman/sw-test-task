@@ -1,1 +1,1 @@
-export { CurrencySwitcherWithFetch as CurrencySwitcher } from './CurrencySwitcher';
+export { CurrencySwitcherWrapped as CurrencySwitcher } from './CurrencySwitcher';

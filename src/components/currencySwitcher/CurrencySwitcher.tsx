@@ -1,10 +1,13 @@
 import { Component } from 'react';
+import { connect } from 'react-redux';
+import { ActionCreatorWithPayload, compose } from '@reduxjs/toolkit';
 import { v4 as uid } from 'uuid';
 import { Currency } from '../../types';
 import styled from 'styled-components';
 import { theme } from '../../theme';
-import { withCurrencyList } from '../../api/withCurrencyList';
 import arrow from '../../assets/vector.png';
+import { withCurrencyList } from '../../api/withCurrencyList';
+import { setCurrency } from '../../store/currencyReducer';
 
 const StyledCurrencySwitcher = styled.div`
   width: 3em;
@@ -48,6 +51,9 @@ type SwitcherProps = {
     error: any;
     currencies: Currency[];
   };
+  label: string;
+  symbol: string;
+  setCurrency: ActionCreatorWithPayload<Currency, string>;
 };
 
 type SwitcherState = {
@@ -55,19 +61,20 @@ type SwitcherState = {
 };
 
 class CurrencySwitcher extends Component<SwitcherProps, SwitcherState> {
-  constructor(props: SwitcherProps) {
-    super(props);
-    this.state = {
-      isActive: false,
-    };
-  }
+  state = {
+    isActive: false,
+  };
 
   toggleSwitcher = () => {
     this.setState((prev) => ({ isActive: !prev.isActive }));
   };
 
+  setCurrentCurrency = ({label, symbol}: Currency) => {
+    this.props.setCurrency({label, symbol});
+  };
+
   render() {
-    const { loading, error, currencies } = this.props.data;
+    const { loading, error, currencies } = this.props.data;    
 
     if (loading) return <div>Loading...</div>;
     if (error) return <h1>Error</h1>;
@@ -76,7 +83,7 @@ class CurrencySwitcher extends Component<SwitcherProps, SwitcherState> {
       <StyledCurrencySwitcher onClick={this.toggleSwitcher}>
         <div>
           <>
-            {'$'}{' '}
+            {this.props.symbol}{' '}
             <ArrowIcon
               src={arrow}
               alt='currency switcher'
@@ -86,9 +93,12 @@ class CurrencySwitcher extends Component<SwitcherProps, SwitcherState> {
         </div>
         {this.state.isActive && (
           <OptionsList>
-            {currencies.map(({ label, symbol }) => (
-              <CurrencyOption key={uid()}>
-                {symbol} {label}
+            {currencies.map((currency) => (
+              <CurrencyOption
+                key={uid()}
+                onClick={() => this.setCurrentCurrency(currency)}
+              >
+                {currency.symbol} {currency.label}
               </CurrencyOption>
             ))}
           </OptionsList>
@@ -98,4 +108,18 @@ class CurrencySwitcher extends Component<SwitcherProps, SwitcherState> {
   }
 }
 
-export const CurrencySwitcherWithFetch = withCurrencyList(CurrencySwitcher);
+const mapStateToProps = (state: { currency: Currency }) => ({
+  symbol: state.currency.symbol,
+  label: state.currency.label,
+});
+
+const mapDispatchToProps = {
+  setCurrency,
+};
+
+/* export const CurrencySwitcherWrapped =withCurrencyList(connect(mapStateToProps, mapDispatchToProps)(CurrencySwitcher))
+ */
+export const CurrencySwitcherWrapped = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withCurrencyList
+)(CurrencySwitcher);
