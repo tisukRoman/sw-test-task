@@ -111,10 +111,10 @@ class Product extends Component<ProductProps, ProductState> {
     attributes: null,
   };
 
-  componentDidUpdate() {
+  componentDidMount() {
     const { product } = this.props.data;
-    const { attributes } = this.state;
-    if (product?.attributes.length && !attributes) {
+
+    if (product?.attributes.length) {
       const activeAttributes = toAttributesState(product.attributes);
       this.setState({
         attributes: activeAttributes,
@@ -146,9 +146,6 @@ class Product extends Component<ProductProps, ProductState> {
   };
 
   render() {
-    console.log(this.props);
-    console.log(this.state);
-
     const { loading, error, product } = this.props.data;
     const { attributes } = this.state;
 
