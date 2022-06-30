@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { theme } from '../../theme';
 import { Currency, Price as PriceType } from '../../types';
+import { getActivePrice } from './../../utils/getActivePrice';
 
 const PriceWrapper = styled.div<PriceProps>`
   font-weight: ${({ size }) => (size === 'big' ? 'bold' : '500')};
@@ -20,17 +21,14 @@ type PriceProps = {
 
 class Price extends Component<PriceProps> {
   renderActivePrice = () => {
-    const activePrice = this.props.prices.find(
-      (p) => p.currency.label === this.props.activeCurrencyLabel
-    );
-    return `${activePrice?.currency.symbol}${activePrice?.amount}`;
+    const { prices, activeCurrencyLabel } = this.props;
+    const activePrice = getActivePrice(prices, activeCurrencyLabel);
+    return `${activePrice?.currency.symbol}${activePrice?.amount.toFixed(2)}`;
   };
 
   render() {
     return (
-      <PriceWrapper {...this.props}>
-        {this.renderActivePrice()}
-      </PriceWrapper>
+      <PriceWrapper {...this.props}>{this.renderActivePrice()}</PriceWrapper>
     );
   }
 }
