@@ -2,11 +2,22 @@ import { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import { theme } from '../../theme';
 import { Currency, ProductInCart } from '../../types';
 import { getActivePrice } from '../../utils';
 import { Button } from '../Button';
 import { MiniCartItem } from '../MiniCartItem';
 import { TextLabel } from '../TextLabel';
+
+const Title = styled.div`
+  display: flex;
+`;
+
+const Count = styled.div`
+  font-family: ${theme.fonts.main};
+  margin-left: 0.2em;
+  font-weight: 500;
+`;
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -42,6 +53,7 @@ const Wrapper = styled.div`
 
 type CartModalProps = {
   currency: Currency;
+  itemsCount: number;
   closeModal: () => void;
   products: ProductInCart[];
   location: any;
@@ -72,7 +84,7 @@ class CartModal extends Component<CartModalProps> {
   };
 
   render() {
-    const { products, currency, closeModal} = this.props;
+    const { products, currency, closeModal, itemsCount } = this.props;
 
     const totalSum = products.reduce((sum, product) => {
       const price = getActivePrice(product.prices, currency.label);
@@ -83,32 +95,35 @@ class CartModal extends Component<CartModalProps> {
 
     return ReactDOM.createPortal(
       <>
-        <ModalOverlay onClick={closeModal}/>
+        <ModalOverlay onClick={closeModal} />
         <Modal>
-            <TextLabel margin='0'>My Bag</TextLabel>
-            {products.map((product) => (
-              <MiniCartItem key={product.id} product={product} />
-            ))}
-            <Wrapper>
-              <TextLabel>Total:</TextLabel>
-              <TextLabel>
-                {currency.symbol}
-                {totalPrice}
-              </TextLabel>
-            </Wrapper>
-            <Wrapper>
-              <Button
-                height='2.8em'
-                width='48%'
-                variant='outlined'
-                onClick={this.viewBag}
-              >
-                VIEW BAG
-              </Button>
-              <Button height='2.8em' width='48%' onClick={this.checkOut}>
-                CHECK OUT
-              </Button>
-            </Wrapper>
+          <Title>
+            <TextLabel margin='0'>My Bag,</TextLabel>
+            <Count>{itemsCount} items</Count>
+          </Title>
+          {products.map((product) => (
+            <MiniCartItem key={product.id} product={product} />
+          ))}
+          <Wrapper>
+            <TextLabel>Total:</TextLabel>
+            <TextLabel>
+              {currency.symbol}
+              {totalPrice}
+            </TextLabel>
+          </Wrapper>
+          <Wrapper>
+            <Button
+              height='2.8em'
+              width='48%'
+              variant='outlined'
+              onClick={this.viewBag}
+            >
+              VIEW BAG
+            </Button>
+            <Button height='2.8em' width='48%' onClick={this.checkOut}>
+              CHECK OUT
+            </Button>
+          </Wrapper>
         </Modal>
       </>,
       this.container

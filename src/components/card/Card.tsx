@@ -6,6 +6,7 @@ import { Price as PriceType } from '../../types';
 import { Picture } from '../Picture';
 import { Price } from '../Price';
 import styles from './Card.module.css';
+import cartIcon from '../../assets/white_cart.png';
 
 const CardWrapper = styled.div<{ inStock: boolean }>`
   margin-top: 5em;
@@ -30,6 +31,7 @@ const Media = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  position: relative;
 `;
 
 const PictureWrapper = styled.div`
@@ -39,6 +41,27 @@ const PictureWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const Icon = styled.div<{ inStock: boolean }>`
+  display: none;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  background-color: ${theme.colors.active};
+  position: absolute;
+  bottom: 3.8em;
+  right: 2em;
+  text-align: center;
+  line-height: 4em;
+  ${CardWrapper}:hover & {
+    display: block;
+  }
+`;
+
+const IconImage = styled.img`
+  height: 45%;
+  width: 45%;
 `;
 
 const CardTitle = styled.div`
@@ -72,6 +95,9 @@ class Card extends Component<CardProps> {
       <Link to={`/product/${id}`} className={styles.link}>
         <CardWrapper inStock={inStock}>
           <Media>
+            <Icon inStock={inStock}>
+              <IconImage src={cartIcon} alt='cart icon' />
+            </Icon>
             <PictureWrapper>
               <OutOfStockTitle inStock={inStock}>OUT OF STOCK</OutOfStockTitle>
               <Picture src={imgSrc} alt='dress alt' />
@@ -79,7 +105,7 @@ class Card extends Component<CardProps> {
             <CardTitle>
               {name} {brand}
             </CardTitle>
-            <Price prices={prices}/>
+            <Price prices={prices} />
           </Media>
         </CardWrapper>
       </Link>

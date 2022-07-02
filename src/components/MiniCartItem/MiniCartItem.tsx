@@ -111,7 +111,7 @@ class MiniCartItem extends Component<MiniCartItemProps> {
               count={count}
               onIncrease={this.increaseCount}
               onDecrease={this.decreaseCount}
-              size='1.5em'
+              variant='small'
             />
             <PictureWrapper>
               <Picture

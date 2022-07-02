@@ -37,7 +37,12 @@ class MiniCart extends Component<MiniCartProps, MiniCartState> {
       <>
         <CartButton itemsCount={itemsCount} onClick={this.toggleModal} />
         {modalOpen && (
-          <CartModal products={products} closeModal={this.closeModal} currency={currency} />
+          <CartModal
+            products={products}
+            closeModal={this.closeModal}
+            currency={currency}
+            itemsCount={itemsCount}
+          />
         )}
       </>
     );
@@ -46,7 +51,7 @@ class MiniCart extends Component<MiniCartProps, MiniCartState> {
 
 const mapStateToProps = (state: RootState) => ({
   products: state.cart.products,
-  currency: state.currency
+  currency: state.currency,
 });
 
 export const MiniCartWrapped = connect(mapStateToProps)(MiniCart);

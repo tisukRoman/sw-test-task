@@ -6,10 +6,10 @@ import { Currency, Price as PriceType } from '../../types';
 import { getActivePrice } from './../../utils/getActivePrice';
 
 const PriceWrapper = styled.div<PriceProps>`
-  font-weight: ${({ size }) => (size === 'big' ? 'bold' : '500')};
   font-size: ${({ size }) => (size === 'big' ? '1.2rem' : '1rem')};
-  font-family: ${theme.fonts.main};
   margin: ${({ margin }) => (margin ? margin : '0')};
+  font-family: ${theme.fonts.main};
+  font-weight: 600;
 `;
 
 type PriceProps = {
