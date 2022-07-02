@@ -17,6 +17,7 @@ const StyledCurrencySwitcher = styled.div`
   cursor: pointer;
   transition: 0.2s;
   border: none;
+  z-index: 3;
 `;
 
 const ArrowIcon = styled.img<SwitcherState>`

@@ -5,9 +5,8 @@ import styled from 'styled-components';
 import logo from '../../assets/logo.png';
 import { HeaderLink } from '../HeaderLink';
 import { CurrencySwitcher } from '../CurrencySwitcher';
-import { CartButton } from '../CartButton';
 import { withCategoryList } from '../../api/withCategoryList';
-import { Link } from 'react-router-dom';
+import { MiniCart } from '../MiniCart';
 
 const StyledHeader = styled.header`
   margin-top: 1em;
@@ -64,9 +63,7 @@ class Header extends Component<HeaderProps> {
         </LogoWrapper>
         <HeaderNavigation>
           <CurrencySwitcher />
-          <Link to='/cart'>
-            <CartButton />
-          </Link>
+          <MiniCart />
         </HeaderNavigation>
       </StyledHeader>
     );

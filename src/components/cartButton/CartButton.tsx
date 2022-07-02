@@ -30,22 +30,16 @@ const CartItemsCount = styled.div`
   text-align: center;
 `;
 
-type CartButtonState = {
+type CartButtonProps = {
   itemsCount: number;
+  onClick: () => void;
 };
 
-class CartButton extends Component<{}, CartButtonState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      itemsCount: 2,
-    };
-  }
-
+class CartButton extends Component<CartButtonProps> {
   render() {
     return (
-      <CartButtonWrapper>
-        <CartItemsCount>{this.state.itemsCount}</CartItemsCount>
+      <CartButtonWrapper onClick={this.props.onClick}>
+        <CartItemsCount>{this.props.itemsCount}</CartItemsCount>
         <img src={cart} alt='cart icon' />
       </CartButtonWrapper>
     );

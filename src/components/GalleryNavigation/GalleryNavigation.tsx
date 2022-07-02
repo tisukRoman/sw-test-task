@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import styled from 'styled-components';
 import nav_arrow from '../../assets/nav_arrow.png';
-import { Picture } from '../Picture';
 
 const NavigationWrapper = styled.div`
   width: 5em;
@@ -13,16 +12,18 @@ const NavigationWrapper = styled.div`
   right: 1em;
 `;
 
-const NavButton = styled.div<{ direction: 'right' | 'left' }>`
-  ${({ direction }) => direction === 'left' && 'transform: rotate(180deg)'};
+const NavButton = styled.div`
   width: 2em;
   height: 2em;
-  line-height: 2.25em;
+  line-height: 2em;
   cursor: pointer;
   background-color: #000;
   color: #fff;
   opacity: 0.8;
 `;
+const Image = styled.img<{ direction: 'right' | 'left' }>`
+  ${({ direction }) => direction === 'left' && 'transform: rotate(180deg)'};
+`
 
 type GalleryNavigationProps = {
   onPrevious: (direction: 'left') => void;
@@ -34,11 +35,11 @@ class GalleryNavigation extends Component<GalleryNavigationProps> {
     const { onPrevious, onNext } = this.props;
     return (
       <NavigationWrapper>
-        <NavButton onClick={() => onPrevious('left')} direction='left'>
-          <img src={nav_arrow} alt='left arrow' />
+        <NavButton onClick={() => onPrevious('left')}>
+          <Image src={nav_arrow} alt='left arrow' direction='left'/>
         </NavButton>
-        <NavButton onClick={() => onNext('right')} direction='right'>
-          <img src={nav_arrow} alt='right arrow' />
+        <NavButton onClick={() => onNext('right')}>
+          <Image src={nav_arrow} alt='right arrow' direction='right'/>
         </NavButton>
       </NavigationWrapper>
     );

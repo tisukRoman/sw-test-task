@@ -4,11 +4,9 @@ import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import styled from 'styled-components';
 import { theme } from '../../theme';
 import { ProductInCart } from '../../types';
-import { GalleryNavigation } from '../GalleryNavigation';
 import { ProductAttribute } from '../ProductAttribute';
 import { CountPicker } from '../CountPicker';
 import { Picture } from '../Picture';
-import { Line } from '../Line';
 import {
   removeProduct,
   increaseProductCount,
@@ -16,16 +14,18 @@ import {
   selectProductAttributeValue,
 } from '../../store/cartReducer';
 import { Price } from '../Price';
+import { TextLabel } from '../TextLabel';
 
 const CartItemWrapper = styled.div`
-  min-height: 16em;
+  margin: 3em 0;
+  min-height: 12em;
   width: 100%;
   display: flex;
   justify-content: space-between;
 `;
 
 const Info = styled.div`
-  width: 18em;
+  width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -33,30 +33,20 @@ const Info = styled.div`
   font-family: ${theme.fonts.main};
 `;
 
-const InfoTitle = styled.h2`
-  margin: 0;
-  font-weight: 600;
-`;
-
-const InfoSubTitle = styled.h2`
-  margin: 0;
-  font-weight: 400;
-`;
-
 const CountAndImage = styled.div`
-  width: 18em;
-  min-height: 16em;
+  width: 50%;
+  min-height: 12em;
   display: flex;
   justify-content: space-between;
 `;
 
 const PictureWrapper = styled.div`
-  width: 12.5em;
-  height: 100%;
+  width: 8em;
+  height: 10em;
   position: relative;
 `;
 
-type CartItemProps = {
+type MiniCartItemProps = {
   product: ProductInCart;
   removeProduct: ActionCreatorWithPayload<{ id: string }, string>;
   increaseProductCount: ActionCreatorWithPayload<{ id: string }, string>;
@@ -67,21 +57,7 @@ type CartItemProps = {
   >;
 };
 
-type CartItemState = {
-  selectedPicture: string;
-};
-
-class CartItem extends Component<CartItemProps, CartItemState> {
-  state = {
-    selectedPicture: '',
-  };
-
-  componentDidMount() {
-    this.setState({
-      selectedPicture: this.props.product.gallery[0],
-    });
-  }
-
+class MiniCartItem extends Component<MiniCartItemProps> {
   selectAttributeValue = (name: string, value: string) => {
     this.props.selectProductAttributeValue({
       id: this.props.product.id,
@@ -100,35 +76,29 @@ class CartItem extends Component<CartItemProps, CartItemState> {
       : this.props.removeProduct({ id: this.props.product.id });
   };
 
-  scrollPicture = (direction: 'left' | 'right') => {
-    const { gallery } = this.props.product;
-    const { selectedPicture } = this.state;
-
-    const i = gallery.indexOf(selectedPicture);
-
-    if (direction === 'left' && gallery[i - 1]) {
-      this.setState({ selectedPicture: gallery[i - 1] });
-    }
-    if (direction === 'right' && gallery[i + 1]) {
-      this.setState({ selectedPicture: gallery[i + 1] });
-    }
-  };
-
   render() {
-    const { prices, name, brand, attributes, count, selectedAttributes } =
-      this.props.product;
+    const {
+      prices,
+      name,
+      brand,
+      attributes,
+      count,
+      selectedAttributes,
+      gallery,
+    } = this.props.product;
 
     return (
       <>
         <CartItemWrapper>
           <Info>
-            <InfoTitle>{name}</InfoTitle>
-            <InfoSubTitle>{brand}</InfoSubTitle>
-            <Price prices={prices} margin='1em 0 0 0' size='big' />
+            <TextLabel variant='thin' margin='0 0 0.5em 0'>{name}</TextLabel>
+            <TextLabel variant='thin'>{brand}</TextLabel>
+            <Price prices={prices} margin='1em 0 0 0' size='small' />
             {attributes.map((attr) => (
               <ProductAttribute
                 {...attr}
                 key={attr.id}
+                variant='small'
                 onSelect={this.selectAttributeValue}
                 activeValue={
                   selectedAttributes && selectedAttributes[attr.name]
@@ -141,20 +111,16 @@ class CartItem extends Component<CartItemProps, CartItemState> {
               count={count}
               onIncrease={this.increaseCount}
               onDecrease={this.decreaseCount}
+              size='1.5em'
             />
             <PictureWrapper>
               <Picture
-                src={this.state.selectedPicture}
+                src={gallery[0]}
                 alt='selected product picture'
-              />
-              <GalleryNavigation
-                onNext={this.scrollPicture}
-                onPrevious={this.scrollPicture}
               />
             </PictureWrapper>
           </CountAndImage>
         </CartItemWrapper>
-        <Line />
       </>
     );
   }
@@ -167,5 +133,5 @@ const mapDispatchToProps = {
   selectProductAttributeValue,
 };
 
-const CartItemWithConnect = connect(null, mapDispatchToProps)(CartItem);
-export { CartItemWithConnect };
+const MiniCartItemWithConnect = connect(null, mapDispatchToProps)(MiniCartItem);
+export { MiniCartItemWithConnect };

@@ -6,8 +6,8 @@ import { Button } from '../Button';
 import { Picture } from '../Picture';
 import { theme } from '../../theme';
 
-const CountPickerWrapper = styled.div`
-  height: 100%;
+const CountPickerWrapper = styled.div<{size?: string}>`
+  height: ${({size}) => size ? '12em' : '100%'};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,18 +23,19 @@ type CountPickerProps = {
   onDecrease: () => void;
   onIncrease: () => void;
   count: number;
+  size?: string;
 };
 
 class CountPicker extends Component<CountPickerProps> {
   render() {
-    const { count, onDecrease, onIncrease } = this.props;
+    const { count, onDecrease, onIncrease, size } = this.props;
 
     return (
-      <CountPickerWrapper>
+      <CountPickerWrapper size={size}>
         <Button
           variant='outlined'
-          height='2.8em'
-          width='2.8em'
+          height={size || '2.8em'}
+          width={size || '2.8em'}
           onClick={onIncrease}
         >
           <Picture src={plusIcon} alt='increase product count' />
@@ -42,8 +43,8 @@ class CountPicker extends Component<CountPickerProps> {
         <Count>{count}</Count>
         <Button
           variant='outlined'
-          height='2.8em'
-          width='2.8em'
+          height={size || '2.8em'}
+          width={size || '2.8em'}
           onClick={onDecrease}
         >
           <Picture src={minusIcon} alt='decrease product count' />
