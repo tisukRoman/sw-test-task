@@ -34,14 +34,15 @@ const Info = styled.div`
 
 const CountAndImage = styled.div`
   width: 45%;
-  min-height: 12em;
+  height: 12em;
   display: flex;
   justify-content: space-between;
 `;
 
 const PictureWrapper = styled.div`
+  margin-left: 1em;
   width: 8em;
-  height: 10em;
+  height: 12em;
   position: relative;
 `;
 

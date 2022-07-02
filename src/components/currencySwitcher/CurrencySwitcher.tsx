@@ -67,7 +67,7 @@ class CurrencySwitcher extends Component<SwitcherProps, SwitcherState> {
 
   appRoot = document.getElementById('root');
 
-/*   componentDidMount() {
+  componentDidMount() {
     this.appRoot?.addEventListener('click', this.closeSwitcher);
   }
 
@@ -80,7 +80,7 @@ class CurrencySwitcher extends Component<SwitcherProps, SwitcherState> {
       this.setState({ isActive: false });
     }
   };
- */
+
   toggleSwitcher = () => {
     this.setState((s) => ({ isActive: !s.isActive }));
   };
