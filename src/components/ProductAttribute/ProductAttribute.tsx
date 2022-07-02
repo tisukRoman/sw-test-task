@@ -84,7 +84,7 @@ class ProductAttribute extends Component<AttributeProps> {
     return (
       <>
         <TextLabel
-          margin='1.5em 0 0.5em 0'
+          margin={variant==='small' ? '0.8em 0 0.4em 0' : '1.5em 0 0.5em 0'}
           variant={variant === 'big' ? 'bold' : 'thin'}
         >
           {name}:

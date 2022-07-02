@@ -1,12 +1,13 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../store/store';
-import { ProductInCart } from '../../types';
+import { Currency, ProductInCart } from '../../types';
 import { CartButton } from '../CartButton';
 import { CartModal } from '../CartModal';
 
 type MiniCartProps = {
   products: ProductInCart[];
+  currency: Currency;
 };
 
 type MiniCartState = {
@@ -22,8 +23,12 @@ class MiniCart extends Component<MiniCartProps, MiniCartState> {
     this.setState((s) => ({ modalOpen: !s.modalOpen }));
   };
 
+  closeModal = () => {
+    this.setState({ modalOpen: false });
+  };
+
   render() {
-    const { products } = this.props;
+    const { products, currency } = this.props;
     const { modalOpen } = this.state;
 
     const itemsCount = products.reduce((count, p) => count + p.count, 0);
@@ -31,7 +36,9 @@ class MiniCart extends Component<MiniCartProps, MiniCartState> {
     return (
       <>
         <CartButton itemsCount={itemsCount} onClick={this.toggleModal} />
-        {modalOpen && <CartModal products={products} />}
+        {modalOpen && (
+          <CartModal products={products} closeModal={this.closeModal} currency={currency} />
+        )}
       </>
     );
   }
@@ -39,6 +46,7 @@ class MiniCart extends Component<MiniCartProps, MiniCartState> {
 
 const mapStateToProps = (state: RootState) => ({
   products: state.cart.products,
+  currency: state.currency
 });
 
 export const MiniCartWrapped = connect(mapStateToProps)(MiniCart);

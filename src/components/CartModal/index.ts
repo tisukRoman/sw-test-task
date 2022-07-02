@@ -1,1 +1,1 @@
-export { CartModal } from './CartModal';
+export { CartModalWrapped as CartModal } from './CartModal';

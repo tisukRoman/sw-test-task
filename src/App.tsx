@@ -5,7 +5,13 @@ import Product from './pages/Product';
 import Cart from './pages/Cart';
 import { Header } from './components/Header';
 import { Main } from './components/Main';
-import { Wrapper } from './components/Wrapper';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  max-width: 1240px;
+  margin: 0 auto 5em auto;
+  text-align: center;
+`;
 
 class App extends Component<{}, {}> {
   render() {

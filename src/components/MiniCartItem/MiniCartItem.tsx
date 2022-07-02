@@ -17,7 +17,7 @@ import { Price } from '../Price';
 import { TextLabel } from '../TextLabel';
 
 const CartItemWrapper = styled.div`
-  margin: 3em 0;
+  margin: 2em 0;
   min-height: 12em;
   width: 100%;
   display: flex;
@@ -34,7 +34,7 @@ const Info = styled.div`
 `;
 
 const CountAndImage = styled.div`
-  width: 50%;
+  width: 45%;
   min-height: 12em;
   display: flex;
   justify-content: space-between;
