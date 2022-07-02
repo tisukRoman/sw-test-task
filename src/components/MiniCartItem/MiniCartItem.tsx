@@ -48,20 +48,20 @@ const PictureWrapper = styled.div`
 
 type MiniCartItemProps = {
   product: ProductInCart;
-  removeProduct: ActionCreatorWithPayload<{ id: string }, string>;
-  increaseProductCount: ActionCreatorWithPayload<{ id: string }, string>;
-  decreaseProductCount: ActionCreatorWithPayload<{ id: string }, string>;
+  removeProduct: ActionCreatorWithPayload<ProductInCart, string>;
+  increaseProductCount: ActionCreatorWithPayload<ProductInCart, string>;
+  decreaseProductCount: ActionCreatorWithPayload<ProductInCart, string>;
 };
 
 class MiniCartItem extends Component<MiniCartItemProps> {
   increaseCount = () => {
-    this.props.increaseProductCount({ id: this.props.product.id });
+    this.props.increaseProductCount(this.props.product);
   };
 
   decreaseCount = () => {
     this.props.product.count > 1
-      ? this.props.decreaseProductCount({ id: this.props.product.id })
-      : this.props.removeProduct({ id: this.props.product.id });
+      ? this.props.decreaseProductCount(this.props.product)
+      : this.props.removeProduct(this.props.product);
   };
 
   render() {

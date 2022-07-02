@@ -16,6 +16,7 @@ const Wrapper = styled.div`
 class App extends Component<{}, {}> {
 
   render() {
+    //localStorage.clear()
     return (
       <Wrapper>
         <Header />

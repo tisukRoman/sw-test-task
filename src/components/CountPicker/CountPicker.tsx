@@ -22,8 +22,8 @@ const Count = styled.div<{ variant?: 'big' | 'small' }>`
 type CountPickerProps = {
   onDecrease: () => void;
   onIncrease: () => void;
-  count: number;
   variant?: 'big' | 'small';
+  count: number;
 };
 
 class CountPicker extends Component<CountPickerProps> {
