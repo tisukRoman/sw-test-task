@@ -13,7 +13,6 @@ import {
   removeProduct,
   increaseProductCount,
   decreaseProductCount,
-  selectProductAttributeValue,
 } from '../../store/cartReducer';
 import { Price } from '../Price';
 
@@ -61,10 +60,6 @@ type CartItemProps = {
   removeProduct: ActionCreatorWithPayload<{ id: string }, string>;
   increaseProductCount: ActionCreatorWithPayload<{ id: string }, string>;
   decreaseProductCount: ActionCreatorWithPayload<{ id: string }, string>;
-  selectProductAttributeValue: ActionCreatorWithPayload<
-    { id: string; name: string; value: string },
-    string
-  >;
 };
 
 type CartItemState = {
@@ -81,14 +76,6 @@ class CartItem extends Component<CartItemProps, CartItemState> {
       selectedPicture: this.props.product.gallery[0],
     });
   }
-
-  selectAttributeValue = (name: string, value: string) => {
-    this.props.selectProductAttributeValue({
-      id: this.props.product.id,
-      name,
-      value,
-    });
-  };
 
   increaseCount = () => {
     this.props.increaseProductCount({ id: this.props.product.id });
@@ -128,8 +115,8 @@ class CartItem extends Component<CartItemProps, CartItemState> {
             {attributes.map((attr) => (
               <ProductAttribute
                 {...attr}
+                disabled
                 key={attr.id}
-                onSelect={this.selectAttributeValue}
                 activeValue={
                   selectedAttributes && selectedAttributes[attr.name]
                 }
@@ -164,7 +151,6 @@ const mapDispatchToProps = {
   removeProduct,
   increaseProductCount,
   decreaseProductCount,
-  selectProductAttributeValue,
 };
 
 const CartItemWithConnect = connect(null, mapDispatchToProps)(CartItem);

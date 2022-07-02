@@ -23,7 +23,7 @@ const ItemsContainer = styled.div<{ variant?: 'big' | 'small' }>`
   }}
 `;
 
-const TextItem = styled.div<{ isActive: boolean }>`
+const TextItem = styled.div<{ isActive: boolean, disabled?: boolean }>`
   ${({ isActive }) =>
     isActive &&
     `background-color: #000;
@@ -34,11 +34,11 @@ const TextItem = styled.div<{ isActive: boolean }>`
   border: 1px solid #000;
   margin-right: 1em;
   font-weight: 500;
-  cursor: pointer;
   transition: 0.2s;
+  cursor: ${({ disabled }) => !disabled && 'pointer'};
   &:hover {
-    background-color: #000;
-    color: #fff;
+    background-color: ${({ disabled }) => !disabled && '#000'};
+    color: ${({ disabled }) => !disabled && '#fff'};
   }
 `;
 
@@ -73,18 +73,20 @@ type AttributeProps = {
   type: string;
   items: Item[];
   activeValue: string | null;
-  onSelect: (name: string, value: string) => void;
+  onSelect?: (name: string, value: string) => void;
   variant?: 'big' | 'small';
+  disabled?: boolean;
 };
 
 class ProductAttribute extends Component<AttributeProps> {
   render() {
-    const { name, type, items, activeValue, onSelect, variant } = this.props;
+    const { name, type, items, activeValue, onSelect, variant, disabled } =
+      this.props;
 
     return (
       <>
         <TextLabel
-          margin={variant==='small' ? '0.8em 0 0.4em 0' : '1.5em 0 0.5em 0'}
+          margin={variant === 'small' ? '0.8em 0 0.4em 0' : '1.5em 0 0.5em 0'}
           variant={variant === 'big' ? 'bold' : 'thin'}
         >
           {name}:
@@ -97,14 +99,15 @@ class ProductAttribute extends Component<AttributeProps> {
                   key={id}
                   value={value}
                   isActive={value === activeValue}
-                  onClick={() => onSelect(name, value)}
+                  onClick={onSelect && (() => onSelect(name, value))}
                 ></ColorItem>
               ))
             : items.map(({ id, value }) => (
                 <TextItem
                   key={id}
                   isActive={value === activeValue}
-                  onClick={() => onSelect(name, value)}
+                  disabled={disabled}
+                  onClick={onSelect && (() => onSelect(name, value))}
                 >
                   {value}
                 </TextItem>

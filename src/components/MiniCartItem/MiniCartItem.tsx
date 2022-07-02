@@ -11,7 +11,6 @@ import {
   removeProduct,
   increaseProductCount,
   decreaseProductCount,
-  selectProductAttributeValue,
 } from '../../store/cartReducer';
 import { Price } from '../Price';
 import { TextLabel } from '../TextLabel';
@@ -51,21 +50,9 @@ type MiniCartItemProps = {
   removeProduct: ActionCreatorWithPayload<{ id: string }, string>;
   increaseProductCount: ActionCreatorWithPayload<{ id: string }, string>;
   decreaseProductCount: ActionCreatorWithPayload<{ id: string }, string>;
-  selectProductAttributeValue: ActionCreatorWithPayload<
-    { id: string; name: string; value: string },
-    string
-  >;
 };
 
 class MiniCartItem extends Component<MiniCartItemProps> {
-  selectAttributeValue = (name: string, value: string) => {
-    this.props.selectProductAttributeValue({
-      id: this.props.product.id,
-      name,
-      value,
-    });
-  };
-
   increaseCount = () => {
     this.props.increaseProductCount({ id: this.props.product.id });
   };
@@ -91,15 +78,17 @@ class MiniCartItem extends Component<MiniCartItemProps> {
       <>
         <CartItemWrapper>
           <Info>
-            <TextLabel variant='thin' margin='0 0 0.5em 0'>{name}</TextLabel>
+            <TextLabel variant='thin' margin='0 0 0.5em 0'>
+              {name}
+            </TextLabel>
             <TextLabel variant='thin'>{brand}</TextLabel>
             <Price prices={prices} margin='1em 0 0 0' size='small' />
             {attributes.map((attr) => (
               <ProductAttribute
                 {...attr}
                 key={attr.id}
+                disabled
                 variant='small'
-                onSelect={this.selectAttributeValue}
                 activeValue={
                   selectedAttributes && selectedAttributes[attr.name]
                 }
@@ -114,10 +103,7 @@ class MiniCartItem extends Component<MiniCartItemProps> {
               variant='small'
             />
             <PictureWrapper>
-              <Picture
-                src={gallery[0]}
-                alt='selected product picture'
-              />
+              <Picture src={gallery[0]} alt='selected product picture' />
             </PictureWrapper>
           </CountAndImage>
         </CartItemWrapper>
@@ -130,7 +116,6 @@ const mapDispatchToProps = {
   removeProduct,
   increaseProductCount,
   decreaseProductCount,
-  selectProductAttributeValue,
 };
 
 const MiniCartItemWithConnect = connect(null, mapDispatchToProps)(MiniCartItem);

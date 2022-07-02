@@ -108,7 +108,7 @@ class CartModal extends Component<CartModalProps> {
             <TextLabel>Total:</TextLabel>
             <TextLabel>
               {currency.symbol}
-              {totalPrice}
+              {totalPrice.toFixed(2)}
             </TextLabel>
           </Wrapper>
           <Wrapper>
