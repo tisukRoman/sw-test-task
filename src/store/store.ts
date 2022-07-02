@@ -11,7 +11,11 @@ const rootReducer = combineReducers({
 const initialState = {
   cart: {
     products: getFromLocalStorage('cartItems', []),
-  }
+  },
+  currency: getFromLocalStorage('currency', {
+    symbol: '$',
+    label: 'USD',
+  }),
 };
 
 export const setupStore = () => {

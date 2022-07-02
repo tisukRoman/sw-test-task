@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, MouseEvent } from 'react';
 import { connect } from 'react-redux';
 import { ActionCreatorWithPayload, compose } from '@reduxjs/toolkit';
 import { v4 as uid } from 'uuid';
@@ -16,8 +16,7 @@ const StyledCurrencySwitcher = styled.div`
   font-family: ${theme.fonts.main};
   cursor: pointer;
   transition: 0.2s;
-  border: none;
-  z-index: 3;
+  z-index: 5;
 `;
 
 const ArrowIcon = styled.img<SwitcherState>`
@@ -31,6 +30,7 @@ const ArrowIcon = styled.img<SwitcherState>`
 const OptionsList = styled.div`
   width: 5em;
   box-shadow: 0px 0px 5px 5px rgba(159, 159, 159, 0.1);
+  background-color: #fff;
 `;
 
 const CurrencyOption = styled.div`
@@ -42,7 +42,7 @@ const CurrencyOption = styled.div`
   transition: 0.2s;
   cursor: pointer;
   &:hover {
-    background-color: #eeeeee;
+    background-color: #eee;
   }
 `;
 
@@ -52,8 +52,7 @@ type SwitcherProps = {
     error: any;
     currencies: Currency[];
   };
-  label: string;
-  symbol: string;
+  currency: Currency;
   setCurrency: ActionCreatorWithPayload<Currency, string>;
 };
 
@@ -66,32 +65,49 @@ class CurrencySwitcher extends Component<SwitcherProps, SwitcherState> {
     isActive: false,
   };
 
+  appRoot = document.getElementById('root');
+
+/*   componentDidMount() {
+    this.appRoot?.addEventListener('click', this.closeSwitcher);
+  }
+
+  componentWillUnmount() {
+    this.appRoot?.removeEventListener('click', this.closeSwitcher);
+  }
+
+  closeSwitcher = (e: any) => {
+    if (e.target.attributes[0].nodeValue !== 'switcher') {
+      this.setState({ isActive: false });
+    }
+  };
+ */
   toggleSwitcher = () => {
-    this.setState((prev) => ({ isActive: !prev.isActive }));
+    this.setState((s) => ({ isActive: !s.isActive }));
   };
 
-  setCurrentCurrency = ({label, symbol}: Currency) => {
-    this.props.setCurrency({label, symbol});
+  setCurrentCurrency = ({ label, symbol }: Currency) => {
+    this.props.setCurrency({ label, symbol });
   };
 
   render() {
-    const { loading, error, currencies } = this.props.data;    
+    const { loading, error, currencies } = this.props.data;
 
     if (loading) return <div>Loading...</div>;
     if (error) return <h1>Error</h1>;
 
     return (
-      <StyledCurrencySwitcher onClick={this.toggleSwitcher}>
-        <div>
-          <>
-            {this.props.symbol}{' '}
-            <ArrowIcon
-              src={arrow}
-              alt='currency switcher'
-              isActive={this.state.isActive}
-            />
-          </>
-        </div>
+      <StyledCurrencySwitcher
+        onClick={this.toggleSwitcher}
+        data-name='switcher'
+      >
+        <>
+          {this.props.currency.symbol}{' '}
+          <ArrowIcon
+            src={arrow}
+            alt='currency switcher'
+            isActive={this.state.isActive}
+          />
+        </>
         {this.state.isActive && (
           <OptionsList>
             {currencies.map((currency) => (
@@ -110,8 +126,7 @@ class CurrencySwitcher extends Component<SwitcherProps, SwitcherState> {
 }
 
 const mapStateToProps = (state: { currency: Currency }) => ({
-  symbol: state.currency.symbol,
-  label: state.currency.label,
+  currency: state.currency,
 });
 
 const mapDispatchToProps = {

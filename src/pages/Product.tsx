@@ -145,8 +145,6 @@ class Product extends Component<ProductProps, ProductState> {
       selectedAttributes: this.state.attributes,
     };
     this.props.addProduct(productToAdd);
-    const cartProducts = getFromLocalStorage('cartItems', []);
-    setToLocalStorage('cartItems', [...cartProducts, productToAdd]);
   };
 
   render() {

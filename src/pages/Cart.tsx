@@ -51,10 +51,6 @@ type CartProps = {
 };
 
 class Cart extends Component<CartProps> {
-  componentDidUpdate() {
-    setToLocalStorage('cartItems', this.props.products);
-  }
-
   render() {
     const {
       products,

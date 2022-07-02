@@ -14,6 +14,7 @@ const Wrapper = styled.div`
 `;
 
 class App extends Component<{}, {}> {
+
   render() {
     return (
       <Wrapper>

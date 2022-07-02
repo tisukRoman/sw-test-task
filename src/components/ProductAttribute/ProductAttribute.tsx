@@ -23,7 +23,7 @@ const ItemsContainer = styled.div<{ variant?: 'big' | 'small' }>`
   }}
 `;
 
-const TextItem = styled.div<{ isActive: boolean, disabled?: boolean }>`
+const TextItem = styled.div<{ isActive: boolean; disabled?: boolean }>`
   ${({ isActive }) =>
     isActive &&
     `background-color: #000;
@@ -46,18 +46,19 @@ const ColorItem = styled.div<{
   value: string;
   isActive: boolean;
   variant?: 'small' | 'big';
+  disabled?: boolean;
 }>`
   padding: 0.1em;
   height: ${({ variant }) => (variant === 'small' ? '1em' : '1.5em')};
   width: ${({ variant }) => (variant === 'small' ? '1em' : '1.5em')};
   border: 3px solid
-    ${({ isActive }) => (isActive ? theme.colors.active : '#ffffff')};
+    ${({ isActive }) => (isActive ? theme.colors.active : '#fff')};
   margin-right: ${({ variant }) => (variant === 'small' ? '0.5em' : '1em')};
-  cursor: pointer;
+  cursor: ${({ disabled }) => !disabled && 'pointer'};
   transition: 0.2s;
   background-color: ${({ value }) => value};
   &:hover {
-    border: 3px solid ${theme.colors.active};
+    border: ${({ disabled }) => !disabled && `3px solid ${theme.colors.active}`};
   }
 `;
 
@@ -96,6 +97,7 @@ class ProductAttribute extends Component<AttributeProps> {
             ? items.map(({ id, value }) => (
                 <ColorItem
                   variant={variant}
+                  disabled={disabled}
                   key={id}
                   value={value}
                   isActive={value === activeValue}
