@@ -108,8 +108,17 @@ class Product extends Component<ProductProps, ProductState> {
 
   componentDidMount() {
     const { product } = this.props.data;
-
     if (product?.attributes.length) {
+      const activeAttributes = toAttributesState(product.attributes);
+      this.setState({
+        attributes: activeAttributes,
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    const { product } = this.props.data;
+    if (product?.attributes.length && !this.state.attributes) {
       const activeAttributes = toAttributesState(product.attributes);
       this.setState({
         attributes: activeAttributes,
