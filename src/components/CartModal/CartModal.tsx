@@ -67,10 +67,18 @@ class CartModal extends Component<CartModalProps> {
 
   componentDidMount() {
     document.body.appendChild(this.container);
+    document.addEventListener('scroll', this.disableScrolling);
+    document.body.style.overflow = "hidden";
   }
 
   componentWillUnmount() {
     document.body.removeChild(this.container);
+    document.removeEventListener('scroll', this.disableScrolling);
+    document.body.style.overflow = "scroll";
+  }
+
+  disableScrolling() {
+    window.scroll(0, 0);
   }
 
   viewBag = () => {
