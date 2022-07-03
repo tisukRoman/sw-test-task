@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { theme } from '../../theme';
 import { Currency, Price as PriceType } from '../../types';
-import { getActivePrice } from './../../utils/getActivePrice';
+import { getActivePrice } from '../../utils/getActivePrice/getActivePrice';
 
 const PriceWrapper = styled.div<PriceProps>`
   font-size: ${({ size }) => (size === 'big' ? '1.2rem' : '1rem')};

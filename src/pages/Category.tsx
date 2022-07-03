@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { theme } from '../theme';
 import { CardsList } from '../components/CardsList';
 import { withProducts } from '../api/withProducts';
-import { capitalFirstLetter } from '../utils/capitalFirstLetter';
+import { capitalFirstLetter } from '../utils/capitalFirstLetter/capitalFirstLetter';
 import { withRouter } from 'react-router-dom';
 import { Product } from '../types';
 

@@ -1,4 +1,4 @@
-import { Attribute } from '../types';
+import { Attribute } from '../../types';
 
 export const toAttributesState = (attributes: Attribute[]) => {
   return attributes.reduce((acc, attr) => {

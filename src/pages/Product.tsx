@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { theme } from '../theme';
 import { ProductDetails, ProductInCart } from '../types';
 import { withProductDetails } from '../api/withProductDetails';
-import { toAttributesState } from '../utils/toAttributesState';
+import { toAttributesState } from '../utils/toAttributesState/toAttributesState';
 import { ProductAttribute } from '../components/ProductAttribute';
 import { Picture } from '../components/Picture';
 import { Button } from '../components/Button';
