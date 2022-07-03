@@ -1,4 +1,4 @@
-import { ProductInCart } from '../types';
+import { ProductInCart } from '../../types'
 
 export const compareProducts = (obj1: ProductInCart, obj2: ProductInCart) => {
   const idAreEqual = obj1.id === obj2.id;
