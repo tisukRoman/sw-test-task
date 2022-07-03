@@ -102,7 +102,7 @@ class CartItem extends Component<CartItemProps, CartItemState> {
   };
 
   render() {
-    const { prices, name, brand, attributes, count, selectedAttributes } =
+    const { prices, name, brand, attributes, count, selectedAttributes, gallery } =
       this.props.product;
 
     return (
@@ -134,10 +134,10 @@ class CartItem extends Component<CartItemProps, CartItemState> {
                 src={this.state.selectedPicture}
                 alt='selected product picture'
               />
-              <GalleryNavigation
+              {(gallery.length > 1) && <GalleryNavigation
                 onNext={this.scrollPicture}
                 onPrevious={this.scrollPicture}
-              />
+              />}
             </PictureWrapper>
           </CountAndImage>
         </CartItemWrapper>
