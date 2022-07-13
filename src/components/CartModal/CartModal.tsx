@@ -38,11 +38,7 @@ const Modal = styled.div`
   height: 30em;
   background-color: #fff;
   padding: 1em 1.5em 2em 1.5em;
-  overflow: scroll;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  overflow: auto;
 `;
 
 const Wrapper = styled.div`
