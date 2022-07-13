@@ -2,12 +2,16 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme } from '../../theme';
-import { Price as PriceType } from '../../types';
+import { Attribute, Price as PriceType, ProductInCart } from '../../types';
 import styles from './Card.module.css';
 import cartIcon from '../../assets/white_cart.png';
 import { Picture } from '../Picture';
 import { Price } from '../Price';
 import { OutOfStock } from '../OutOfStock';
+import { toAttributesState } from '../../utils';
+import { addProduct } from '../../store/cartReducer';
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
+import { connect } from 'react-redux';
 
 const CardWrapper = styled.div`
   margin-top: 5em;
@@ -49,6 +53,13 @@ const Icon = styled.div`
   right: 2em;
   text-align: center;
   line-height: 4em;
+  transition: 0.2s;
+  &:hover {
+    transform: scale(1.2);
+  }
+  ${CardWrapper}:hover & {
+    display: block;
+  }
 `;
 
 const IconImage = styled.img`
@@ -67,23 +78,38 @@ type CardProps = {
   name: string;
   brand: string;
   inStock: boolean;
-  imgSrc: string;
+  gallery: string[];
   prices: PriceType[];
+  attributes: Attribute[];
+  addProduct: ActionCreatorWithPayload<ProductInCart, string>;
 };
 
 class Card extends Component<CardProps> {
+  addToCart = (event: any) => {
+    event.stopPropagation();
+    debugger;
+    const productToAdd: ProductInCart = {
+      ...this.props,
+      count: 1,
+      selectedAttributes: toAttributesState(this.props.attributes),
+    };
+    this.props.addProduct(productToAdd);
+  };
+
   render() {
-    const { id, imgSrc, name, brand, inStock, prices } = this.props;
+    const { id, gallery, name, brand, inStock, prices } = this.props;
     return (
       <Link to={`/product/${id}`} className={styles.link}>
         <CardWrapper>
           <Media>
-            <Icon>
-              <IconImage src={cartIcon} alt='cart icon' />
-            </Icon>
+            {inStock && (
+              <Icon onClick={this.addToCart}>
+                <IconImage src={cartIcon} alt='cart icon' />
+              </Icon>
+            )}
             <PictureWrapper>
               <OutOfStock inStock={inStock}>
-                <Picture src={imgSrc} alt='dress alt' />
+                <Picture src={gallery[0]} alt='dress alt' />
               </OutOfStock>
             </PictureWrapper>
             <CardTitle>
@@ -97,4 +123,6 @@ class Card extends Component<CardProps> {
   }
 }
 
-export { Card };
+const CardConnected = connect(null, { addProduct })(Card);
+
+export { CardConnected };

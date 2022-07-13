@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import styled from 'styled-components';
+import { Product } from '../../types';
 import { Card } from '../Card';
 
 const CardsListWrapper = styled.div`
@@ -13,7 +14,7 @@ const CardsListWrapper = styled.div`
 `;
 
 type CardListProps = {
-  products?: any[];
+  products?: Product[];
 };
 
 class CardsList extends Component<CardListProps> {
@@ -22,17 +23,7 @@ class CardsList extends Component<CardListProps> {
       <>
         <CardsListWrapper>
           {this.props.products?.length ? (
-            this.props.products.map((card) => (
-              <Card
-                id={card.id}
-                key={card.id}
-                name={card.name}
-                brand={card.brand}
-                inStock={card.inStock}
-                imgSrc={card.gallery[0]}
-                prices={card.prices}
-              />
-            ))
+            this.props.products.map((card) => <Card key={card.id} {...card} />)
           ) : (
             <h1>No Products...</h1>
           )}

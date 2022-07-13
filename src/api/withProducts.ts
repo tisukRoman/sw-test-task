@@ -13,6 +13,16 @@ const GET_PRODUCTS_BY_CATEGORY = gql`
         brand
         inStock
         gallery
+        attributes {
+          id
+          name
+          type
+          items {
+            displayValue
+            value
+            id
+          }
+        }
         prices {
           currency {
             label
