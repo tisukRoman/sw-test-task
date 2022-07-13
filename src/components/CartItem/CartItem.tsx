@@ -4,17 +4,16 @@ import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import styled from 'styled-components';
 import { theme } from '../../theme';
 import { ProductInCart } from '../../types';
-import { GalleryNavigation } from '../GalleryNavigation';
-import { ProductAttribute } from '../ProductAttribute';
-import { CountPicker } from '../CountPicker';
-import { Picture } from '../Picture';
-import { Line } from '../Line';
 import {
   removeProduct,
   increaseProductCount,
   decreaseProductCount,
 } from '../../store/cartReducer';
+import { ProductAttribute } from '../ProductAttribute';
+import { GalleryCarousel } from '../GalleryCarousel';
+import { CountPicker } from '../CountPicker';
 import { Price } from '../Price';
+import { Line } from '../Line';
 
 const CartItemWrapper = styled.div`
   min-height: 16em;
@@ -49,15 +48,6 @@ const CountAndImage = styled.div`
   justify-content: space-between;
 `;
 
-const PictureWrapper = styled.div`
-  width: 12.5em;
-  height: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 type CartItemProps = {
   product: ProductInCart;
   removeProduct: ActionCreatorWithPayload<ProductInCart, string>;
@@ -65,21 +55,7 @@ type CartItemProps = {
   decreaseProductCount: ActionCreatorWithPayload<ProductInCart, string>;
 };
 
-type CartItemState = {
-  selectedPicture: string;
-};
-
-class CartItem extends Component<CartItemProps, CartItemState> {
-  state = {
-    selectedPicture: '',
-  };
-
-  componentDidMount() {
-    this.setState({
-      selectedPicture: this.props.product.gallery[0],
-    });
-  }
-
+class CartItem extends Component<CartItemProps> {
   increaseCount = () => {
     this.props.increaseProductCount(this.props.product);
   };
@@ -90,23 +66,16 @@ class CartItem extends Component<CartItemProps, CartItemState> {
       : this.props.removeProduct(this.props.product);
   };
 
-  scrollPicture = (direction: 'left' | 'right') => {
-    const { gallery } = this.props.product;
-    const { selectedPicture } = this.state;
-
-    const i = gallery.indexOf(selectedPicture);
-
-    if (direction === 'left' && gallery[i - 1]) {
-      this.setState({ selectedPicture: gallery[i - 1] });
-    }
-    if (direction === 'right' && gallery[i + 1]) {
-      this.setState({ selectedPicture: gallery[i + 1] });
-    }
-  };
-
   render() {
-    const { prices, name, brand, attributes, count, selectedAttributes, gallery } =
-      this.props.product;
+    const {
+      prices,
+      name,
+      brand,
+      attributes,
+      count,
+      selectedAttributes,
+      gallery,
+    } = this.props.product;
 
     return (
       <>
@@ -132,16 +101,7 @@ class CartItem extends Component<CartItemProps, CartItemState> {
               onIncrease={this.increaseCount}
               onDecrease={this.decreaseCount}
             />
-            <PictureWrapper>
-              <Picture
-                src={this.state.selectedPicture}
-                alt='selected product picture'
-              />
-              {(gallery.length > 1) && <GalleryNavigation
-                onNext={this.scrollPicture}
-                onPrevious={this.scrollPicture}
-              />}
-            </PictureWrapper>
+            <GalleryCarousel gallery={gallery} />
           </CountAndImage>
         </CartItemWrapper>
         <Line />

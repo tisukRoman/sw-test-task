@@ -1,1 +1,0 @@
-export { GalleryNavigation } from './GalleryNavigation';
