@@ -1,10 +1,9 @@
 import { Component } from 'react';
 import styled from 'styled-components';
-import plusIcon from '../../assets/plus.png';
-import minusIcon from '../../assets/minus.png';
-import { Button } from '../Button';
-import { Picture } from '../Picture';
+import plusIcon from '../../assets/plus.svg';
+import minusIcon from '../../assets/minus.svg';
 import { theme } from '../../theme';
+import { Button } from '../Button';
 
 const CountPickerWrapper = styled.div<{ variant?: 'big' | 'small' }>`
   height: ${({ variant }) => (variant === 'small' ? '12em' : '100%')};
@@ -17,6 +16,20 @@ const Count = styled.div<{ variant?: 'big' | 'small' }>`
   font-size: ${({ variant }) => (variant === 'small' ? '1rem' : '1.5rem')};
   font-family: ${theme.fonts.main};
   font-weight: 500;
+`;
+
+const Icon = styled.img<{ variant?: 'big' | 'small' }>`
+  ${({ variant }) =>
+    variant === 'small'
+      ? `
+    width: 100%;
+    height: 100%;
+  `
+      : `
+    margin-top: 25%;
+    width: 60%;
+    height: 60%;
+  `}
 `;
 
 type CountPickerProps = {
@@ -38,7 +51,7 @@ class CountPicker extends Component<CountPickerProps> {
           width={variant === 'small' ? '1.5em' : '2.8em'}
           onClick={onIncrease}
         >
-          <Picture src={plusIcon} alt='increase product count' />
+          <Icon variant={variant} src={plusIcon} alt='increase product count' />
         </Button>
         <Count variant={variant}>{count}</Count>
         <Button
@@ -47,7 +60,11 @@ class CountPicker extends Component<CountPickerProps> {
           width={variant === 'small' ? '1.5em' : '2.8em'}
           onClick={onDecrease}
         >
-          <Picture src={minusIcon} alt='decrease product count' />
+          <Icon
+            variant={variant}
+            src={minusIcon}
+            alt='decrease product count'
+          />
         </Button>
       </CountPickerWrapper>
     );

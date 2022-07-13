@@ -183,6 +183,7 @@ class Product extends Component<ProductProps, ProductState> {
           ))}
           <Price prices={product.prices} margin='1.5em 0 2em 0' size='big' />
           <Button
+            height='3em'
             variant='filled'
             disabled={!product.inStock}
             onClick={this.addToCart}
