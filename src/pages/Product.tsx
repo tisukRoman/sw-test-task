@@ -12,7 +12,6 @@ import { ProductAttribute } from '../components/ProductAttribute';
 import { Picture } from '../components/Picture';
 import { Button } from '../components/Button';
 import { addProduct } from '../store/cartReducer';
-import { getFromLocalStorage, setToLocalStorage } from '../utils';
 import { Price } from '../components/Price';
 
 const ProductPage = styled.div`
@@ -162,7 +161,7 @@ class Product extends Component<ProductProps, ProductState> {
               <Picture
                 src={src}
                 alt='product picture'
-                onClick={() => this.selectPicture(src)}
+                onClick={()=>this.selectPicture(src)}
               />
             </PictureListWrapper>
           ))}
