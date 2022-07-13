@@ -1,4 +1,4 @@
-import { Component, MouseEvent } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { ActionCreatorWithPayload, compose } from '@reduxjs/toolkit';
 import { v4 as uid } from 'uuid';
