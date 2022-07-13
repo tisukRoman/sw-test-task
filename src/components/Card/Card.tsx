@@ -103,7 +103,7 @@ class Card extends Component<CardProps> {
               <Picture src={imgSrc} alt='dress alt' />
             </PictureWrapper>
             <CardTitle>
-              {name} {brand}
+              {brand} {name}
             </CardTitle>
             <Price prices={prices} />
           </Media>
