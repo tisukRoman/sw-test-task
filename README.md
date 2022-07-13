@@ -1,1 +1,4 @@
-Scandiweb test task
+junior Front-end task made for ScandiWeb
+
+
+Roman Tyschuck
