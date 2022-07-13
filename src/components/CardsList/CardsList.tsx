@@ -7,7 +7,9 @@ const CardsListWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
+  column-gap: 5em;
+  row-gap: 1em;
 `;
 
 type CardListProps = {
@@ -32,7 +34,7 @@ class CardsList extends Component<CardListProps> {
               />
             ))
           ) : (
-            <h1>No Products</h1>
+            <h1>No Products...</h1>
           )}
         </CardsListWrapper>
       </>

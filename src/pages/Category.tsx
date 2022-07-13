@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme } from '../theme';
 import { Product } from '../types';
-import { withProducts } from '../api/withProducts';
 import { capitalFirstLetter } from '../utils';
+import { withProducts } from '../api/withProducts';
 import { CardsList } from '../components/CardsList';
 
 const CategoryTitle = styled.h2`
