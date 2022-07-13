@@ -13,6 +13,7 @@ import { ProductAttribute } from '../components/ProductAttribute';
 import { Picture } from '../components/Picture';
 import { Button } from '../components/Button';
 import { Price } from '../components/Price';
+import { OutOfStock } from '../components/OutOfStock';
 
 const ProductPage = styled.div`
   margin-top: 4.5em;
@@ -161,16 +162,18 @@ class Product extends Component<ProductProps, ProductState> {
               <Picture
                 src={src}
                 alt='product picture'
-                onClick={()=>this.selectPicture(src)}
+                onClick={() => this.selectPicture(src)}
               />
             </PictureListWrapper>
           ))}
         </PictureList>
         <PictureWrapper>
-          <Picture
-            src={this.state.selectedPicture || product.gallery[0]}
-            alt='selected product picture'
-          />
+        <OutOfStock inStock={product.inStock}>
+            <Picture
+              src={this.state.selectedPicture || product.gallery[0]}
+              alt='selected product picture'
+            />
+          </OutOfStock>
         </PictureWrapper>
         <Info>
           <InfoTitle>{product.name}</InfoTitle>

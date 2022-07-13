@@ -7,22 +7,17 @@ import styles from './Card.module.css';
 import cartIcon from '../../assets/white_cart.png';
 import { Picture } from '../Picture';
 import { Price } from '../Price';
+import { OutOfStock } from '../OutOfStock';
 
-const CardWrapper = styled.div<{ inStock: boolean }>`
+const CardWrapper = styled.div`
   margin-top: 5em;
   width: 22em;
   height: 27em;
-  ${({ inStock }) =>
-    inStock
-      ? `
   cursor: pointer;
   transition: 0.3s;
   &:hover {
     box-shadow: 0px 0px 8px 8px rgba(66, 65, 65, 0.1);
-  } `
-      : `
-    opacity: 0.5;
-  `}
+  }
 `;
 
 const Media = styled.div`
@@ -43,7 +38,7 @@ const PictureWrapper = styled.div`
   align-items: center;
 `;
 
-const Icon = styled.div<{ inStock: boolean }>`
+const Icon = styled.div`
   display: none;
   width: 3em;
   height: 3em;
@@ -54,9 +49,6 @@ const Icon = styled.div<{ inStock: boolean }>`
   right: 2em;
   text-align: center;
   line-height: 4em;
-  ${CardWrapper}:hover & {
-    display: block;
-  }
 `;
 
 const IconImage = styled.img`
@@ -68,15 +60,6 @@ const CardTitle = styled.div`
   line-height: 2.5em;
   font-family: ${theme.fonts.main};
   font-weight: 400;
-`;
-
-const OutOfStockTitle = styled.div<{ inStock: boolean }>`
-  ${({ inStock }) => inStock && 'display: none'};
-  font-family: ${theme.fonts.main};
-  font-weight: 400;
-  position: absolute;
-  font-size: 1.5rem;
-  cursor: default;
 `;
 
 type CardProps = {
@@ -93,14 +76,15 @@ class Card extends Component<CardProps> {
     const { id, imgSrc, name, brand, inStock, prices } = this.props;
     return (
       <Link to={`/product/${id}`} className={styles.link}>
-        <CardWrapper inStock={inStock}>
+        <CardWrapper>
           <Media>
-            <Icon inStock={inStock}>
+            <Icon>
               <IconImage src={cartIcon} alt='cart icon' />
             </Icon>
             <PictureWrapper>
-              <OutOfStockTitle inStock={inStock}>OUT OF STOCK</OutOfStockTitle>
-              <Picture src={imgSrc} alt='dress alt' />
+              <OutOfStock inStock={inStock}>
+                <Picture src={imgSrc} alt='dress alt' />
+              </OutOfStock>
             </PictureWrapper>
             <CardTitle>
               {brand} {name}
