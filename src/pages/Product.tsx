@@ -60,11 +60,6 @@ const Info = styled.div`
   flex-direction: column;
   align-items: flex-start;
   font-family: ${theme.fonts.main};
-  overflow: scroll;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const InfoTitle = styled.h2`
