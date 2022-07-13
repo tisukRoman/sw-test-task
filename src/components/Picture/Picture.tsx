@@ -2,9 +2,8 @@ import { Component } from 'react';
 import styled from 'styled-components';
 
 const StyledPicture = styled.img`
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
 `;
 
 type PictureProps = {

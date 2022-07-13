@@ -53,6 +53,9 @@ const PictureWrapper = styled.div`
   width: 12.5em;
   height: 100%;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 type CartItemProps = {
