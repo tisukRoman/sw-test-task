@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme } from '../../theme';
 import { Price as PriceType } from '../../types';
-import { Picture } from '../Picture';
-import { Price } from '../Price';
 import styles from './Card.module.css';
 import cartIcon from '../../assets/white_cart.png';
+import { Picture } from '../Picture';
+import { Price } from '../Price';
 
 const CardWrapper = styled.div<{ inStock: boolean }>`
   margin-top: 5em;

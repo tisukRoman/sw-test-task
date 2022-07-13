@@ -3,9 +3,9 @@ import { v4 as uid } from 'uuid';
 import { Category } from '../../types';
 import styled from 'styled-components';
 import logo from '../../assets/logo.png';
+import { withCategoryList } from '../../api/withCategoryList';
 import { HeaderLink } from '../HeaderLink';
 import { CurrencySwitcher } from '../CurrencySwitcher';
-import { withCategoryList } from '../../api/withCategoryList';
 import { MiniCart } from '../MiniCart';
 
 const StyledHeader = styled.header`

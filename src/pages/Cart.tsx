@@ -4,11 +4,11 @@ import { RootState } from '../store/store';
 import styled from 'styled-components';
 import { theme } from '../theme';
 import { Currency, ProductInCart } from '../types';
-import { getActivePrice, setToLocalStorage } from '../utils';
+import { getActivePrice } from '../utils';
 import { TextLabel } from '../components/TextLabel';
 import { CartItem } from '../components/CartItem';
-import { Line } from '../components/Line';
 import { Button } from '../components/Button';
+import { Line } from '../components/Line';
 
 const CartTitle = styled.h2`
   margin-top: 2em;

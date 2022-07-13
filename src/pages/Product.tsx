@@ -7,11 +7,11 @@ import styled from 'styled-components';
 import { theme } from '../theme';
 import { ProductDetails, ProductInCart } from '../types';
 import { withProductDetails } from '../api/withProductDetails';
-import { toAttributesState } from '../utils/toAttributesState/toAttributesState';
+import { toAttributesState } from '../utils';
+import { addProduct } from '../store/cartReducer';
 import { ProductAttribute } from '../components/ProductAttribute';
 import { Picture } from '../components/Picture';
 import { Button } from '../components/Button';
-import { addProduct } from '../store/cartReducer';
 import { Price } from '../components/Price';
 
 const ProductPage = styled.div`
