@@ -1,17 +1,16 @@
-import { Component } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { theme } from '../../theme';
+import { Component, MouseEvent } from 'react';
+import { connect } from 'react-redux';
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { Attribute, Price as PriceType, ProductInCart } from '../../types';
-import styles from './Card.module.css';
-import cartIcon from '../../assets/white_cart.png';
-import { Picture } from '../Picture';
-import { Price } from '../Price';
-import { OutOfStock } from '../OutOfStock';
 import { toAttributesState } from '../../utils';
 import { addProduct } from '../../store/cartReducer';
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
-import { connect } from 'react-redux';
+import styled from 'styled-components';
+import { theme } from '../../theme';
+import cartIcon from '../../assets/white_cart.png';
+import { OutOfStock } from '../OutOfStock';
+import { Picture } from '../Picture';
+import { Price } from '../Price';
+import history from '../../utils/history';
 
 const CardWrapper = styled.div`
   margin-top: 5em;
@@ -56,7 +55,7 @@ const Icon = styled.div`
   transition: 0.2s;
   &:hover {
     transform: scale(1.2);
-  }
+  };
   ${CardWrapper}:hover & {
     display: block;
   }
@@ -85,9 +84,12 @@ type CardProps = {
 };
 
 class Card extends Component<CardProps> {
-  addToCart = (event: any) => {
+  redirectToPDP = () => {
+    history.push(`/product/${this.props.id}`);
+  };
+
+  addToCart = (event: MouseEvent) => {
     event.stopPropagation();
-    debugger;
     const productToAdd: ProductInCart = {
       ...this.props,
       count: 1,
@@ -97,28 +99,26 @@ class Card extends Component<CardProps> {
   };
 
   render() {
-    const { id, gallery, name, brand, inStock, prices } = this.props;
+    const { gallery, name, brand, inStock, prices } = this.props;
     return (
-      <Link to={`/product/${id}`} className={styles.link}>
-        <CardWrapper>
-          <Media>
-            {inStock && (
-              <Icon onClick={this.addToCart}>
-                <IconImage src={cartIcon} alt='cart icon' />
-              </Icon>
-            )}
-            <PictureWrapper>
-              <OutOfStock inStock={inStock}>
-                <Picture src={gallery[0]} alt='dress alt' />
-              </OutOfStock>
-            </PictureWrapper>
-            <CardTitle>
-              {brand} {name}
-            </CardTitle>
-            <Price prices={prices} />
-          </Media>
-        </CardWrapper>
-      </Link>
+      <CardWrapper onClick={this.redirectToPDP}>
+        <Media>
+          {inStock && (
+            <Icon onClick={this.addToCart}>
+              <IconImage src={cartIcon} alt='cart icon' />
+            </Icon>
+          )}
+          <PictureWrapper>
+            <OutOfStock inStock={inStock}>
+              <Picture src={gallery[0]} alt='dress alt' />
+            </OutOfStock>
+          </PictureWrapper>
+          <CardTitle>
+            {brand} {name}
+          </CardTitle>
+          <Price prices={prices} />
+        </Media>
+      </CardWrapper>
     );
   }
 }
